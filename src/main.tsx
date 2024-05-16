@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: "/battle-simulator",
+        path: "/battleSimulator",
         element: <Battle />
       }
     ]
