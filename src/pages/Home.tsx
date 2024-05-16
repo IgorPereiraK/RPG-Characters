@@ -80,7 +80,7 @@ export default function Home() {
           </li>
         ))}
         <div className="absolute bottom-8">
-            <Link to="/battle-simulator" target="_blank">
+            <Link to="/battleSimulator" target="_blank">
                 <button className="px-2 hover:scale-110">
                     <img src="./image/icon-battle.png" alt="battle icon"/>
                 </button>
