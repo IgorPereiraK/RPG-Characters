@@ -1,8 +1,8 @@
 
 import CardItens from "./cardItens";
-import { acessoriosAlexia, acessoriosRiven, acessoriosVlad, armasEArmadurasAlexia, armasEArmadurasRiven, armasEArmadurasVlad, itensAlexia, itensRiven, itensVlad } from "./data/itensCharacters";
-import { CharacterInfo } from "./types/CharacterInfo";
-import { Item } from "./types/Item";
+import { acessoriosAlexia, acessoriosRiven, acessoriosVlad, armasEArmadurasAlexia, armasEArmadurasRiven, armasEArmadurasVlad, itensAlexia, itensRiven, itensVlad } from "../data/itensCharacters";
+import { CharacterInfo } from "../types/CharacterInfo";
+import { Item } from "../types/Item";
 
 export default function ContainerInventory({character}: {character: CharacterInfo}) {
 

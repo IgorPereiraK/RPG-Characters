@@ -1,7 +1,7 @@
 import BoxAnotação from "./boxAnotacao";
-import { anotacoesAlexia, anotacoesRiven, anotacoesVlad } from "./data/textoCharacters";
-import { CharacterInfo } from "./types/CharacterInfo";
-import { Texto } from "./types/Texto";
+import { anotacoesAlexia, anotacoesRiven, anotacoesVlad } from "../data/textoCharacters";
+import { CharacterInfo } from "../types/CharacterInfo";
+import { Texto } from "../types/Texto";
 
 
 export default function ContainerAnotação({character}: {character: CharacterInfo}) {

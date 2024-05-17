@@ -5,18 +5,18 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from "./ui/dialog"
+  } from "../ui/dialog"
 
-import { alexiaStatus } from "./data/characterStatus";
 import { useState } from "react";
-import { skillsAlexia } from "./data/skillsCharacters";
-import SkillBattle from "./skillBattle";
-import SelectArmorButtonAlexia from "./selectItensCharacters/selectArmorButtonAlexia";
-import SelectItemButtonAlexia from "./selectItensCharacters/selectItemButtonAlexia";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatarSmall";
-import { characterInfo } from "./data/characterInfo";
-import { anotacoesAlexia } from "./data/textoCharacters";
-import ButtonProficienciaAlexia from "./buttons/buttonProficienciaAlexia";
+import { alexiaStatus } from "../data/characterStatus";
+import { skillsAlexia } from "../data/skillsCharacters";
+import SkillBattle from "../skillBattle";
+import SelectArmorButtonAlexia from "../selectItensCharacters/selectArmorButtonAlexia";
+import SelectItemButtonAlexia from "../selectItensCharacters/selectItemButtonAlexia";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatarSmall";
+import { characterInfo } from "../data/characterInfo";
+import { anotacoesAlexia } from "../data/textoCharacters";
+import ButtonProficienciaAlexia from "../buttons/buttonProficienciaAlexia";
 
 export default function CharacterBattleAlexia() {
 

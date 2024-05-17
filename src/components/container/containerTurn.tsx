@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ButtonTurn from "./buttons/buttonTurn";
+import ButtonTurn from "../buttons/buttonTurn";
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 
 type UpdateSkillFunction = () => void;

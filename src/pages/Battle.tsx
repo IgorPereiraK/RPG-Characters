@@ -1,8 +1,8 @@
 import { useState } from "react";
-import CharacterBattleAlexia from "../components/characterBattleAlexia";
-import CharacterBattleRiven from "../components/characterBattleRiven";
-import CharacterBattleVlad from "../components/characterbattleVlad";
-import ContainerTurn from "../components/containerTurn";
+import CharacterBattleAlexia from "../components/charactersBattle/characterBattleAlexia";
+import CharacterBattleRiven from "../components/charactersBattle/characterBattleRiven";
+import CharacterBattleVlad from "../components/charactersBattle/characterbattleVlad";
+import ContainerTurn from "../components/container/containerTurn";
 
 export default function Battle() {
     const [vladSkillCharge, setVladSkillCharge] = useState<number>(0);

@@ -1,4 +1,4 @@
-import { Texto } from "./types/Texto";
+import { Texto } from "../types/Texto";
 
 export default function BoxAnotação({texto} : Texto) {
     return (

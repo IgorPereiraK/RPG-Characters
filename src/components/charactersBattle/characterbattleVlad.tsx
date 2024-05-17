@@ -5,18 +5,18 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from "./ui/dialog"
+  } from "../ui/dialog"
 
-import SkillBattle from "./skillBattle"
-import { skillsVlad } from "./data/skillsCharacters"
-import { vladStatus } from "./data/characterStatus"
-import SelectItemButton from "./selectItensCharacters/selectItemButton"
+import SkillBattle from "../skillBattle"
+import { skillsVlad } from "../data/skillsCharacters"
+import { vladStatus } from "../data/characterStatus"
+import SelectItemButton from "../selectItensCharacters/selectItemButton"
 import { useEffect, useState } from "react"
-import SelectArmorButton from "./selectItensCharacters/selectArmorButton"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatarSmall"
-import { characterInfo } from "./data/characterInfo"
-import { anotacoesVlad } from "./data/textoCharacters"
-import ButtonProficienciaVlad from "./buttons/buttonProficienciaVlad"
+import SelectArmorButton from "../selectItensCharacters/selectArmorButton"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatarSmall"
+import { characterInfo } from "../data/characterInfo"
+import { anotacoesVlad } from "../data/textoCharacters"
+import ButtonProficienciaVlad from "../buttons/buttonProficienciaVlad"
   
 interface CharacterBattleVladProps {
     skillCharge: number;

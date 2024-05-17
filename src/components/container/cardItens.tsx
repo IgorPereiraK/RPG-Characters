@@ -1,4 +1,4 @@
-import { Item } from "./types/Item";
+import { Item } from "../types/Item";
 
 export default function CardItens({name, imagem, texto, dano} : Item) {
     return (

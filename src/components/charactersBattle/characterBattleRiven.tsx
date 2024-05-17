@@ -5,17 +5,17 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from "./ui/dialog"
+  } from "../ui/dialog"
 import { useEffect, useState } from "react";
-import { rivenStatus } from "./data/characterStatus";
-import SelectArmorButtonRiven from "./selectItensCharacters/selectArmorButtonRiven";
-import SelectItemButtonRiven from "./selectItensCharacters/selectItemButtonRiven";
-import { skillsRiven } from "./data/skillsCharacters";
-import SkillBattle from "./skillBattle";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatarSmall";
-import { characterInfo } from "./data/characterInfo";
-import { anotacoesRiven } from "./data/textoCharacters";
-import ButtonProficienciaRiven from "./buttons/buttonProficienciaRiven";
+import { rivenStatus } from "../data/characterStatus";
+import SelectArmorButtonRiven from "../selectItensCharacters/selectArmorButtonRiven";
+import SelectItemButtonRiven from "../selectItensCharacters/selectItemButtonRiven";
+import { skillsRiven } from "../data/skillsCharacters";
+import SkillBattle from "../skillBattle";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatarSmall";
+import { characterInfo } from "../data/characterInfo";
+import { anotacoesRiven } from "../data/textoCharacters";
+import ButtonProficienciaRiven from "../buttons/buttonProficienciaRiven";
 
 interface CharacterBattleRivenProps {
     skillCharge: number;
