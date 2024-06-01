@@ -50,18 +50,40 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
 
     const handleSubtractRiven = () => {
         const newValue = numberRivenHP - subtractRiven;
-        setNumberRivenHP(newValue);
+        setLimitedNumberRivenHP(newValue);
     };
 
     const handleIncrementRiven = () => {
         const newValue = numberRivenHP + incrementRiven;
-        setNumberRivenHP(newValue);
+        setLimitedNumberRivenHP(newValue);
     };
 
     const handleIncrementManaRiven = () => {
         const newValue = numberRivenMP + incrementManaRiven;
-        setNumberRivenMP(newValue);
+        setLimitedNumberRivenMP(newValue);
     };
+
+    const setLimitedNumberRivenHP = (newHP: number | ((prevHP: number) => number)) => {
+        if (typeof newHP === 'function') {
+            setNumberRivenHP((prevHP: number) => {
+                const result = newHP(prevHP);
+                return Math.max(0, Math.min(result, rivenStatus.hp));
+            });
+        } else {
+            setNumberRivenHP(Math.max(0, Math.min(newHP, rivenStatus.hp)));
+        }
+    }
+
+    const setLimitedNumberRivenMP = (newMP: number | ((prevMP: number) => number)) => {
+        if (typeof newMP === 'function') {
+            setNumberRivenMP((prevMP: number) => {
+                const result = newMP(prevMP);
+                return Math.max(0, Math.min(result, rivenStatus.mp));
+            });
+        } else {
+            setNumberRivenMP(Math.max(0, Math.min(newMP, rivenStatus.mp)));
+        }
+    }
 
     const [clickRivenPassiva, setClickRivenPassiva] = useState(0);
     const [buttonBorderColorRivenPassiva, setButtonBorderColorRivenPassiva] = useState("");
@@ -69,7 +91,7 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
     const fotossintese = () => {
         const heal = Math.floor(Math.random() * 2) + 1;
         const healing = numberRivenHP + heal;
-        setNumberRivenHP(healing)
+        setLimitedNumberRivenHP(healing)
 
         alert(`A cura gerada de 1d2 por causa da habilidade Fotossíntese foi: ${heal} de vida`)
     };
@@ -101,7 +123,7 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
 
                 const damageResult = numberRivenHP - result
 
-                setNumberRivenHP(damageResult)
+                setLimitedNumberRivenHP(damageResult)
 
                 alert(`O dano que Riven levou foi ${numeroDamage}, mas a resistencia de Riven reduziu ${resistance} de dano que ela tomou, sendo assim o dano que Riven levou foi reduzido para ${result}.`)
             } else {
@@ -130,7 +152,7 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
     const [promptCount, setPromptCount] = useState(0);
 
     const transfusaoSanguineaRiven = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 6);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 6);
         
         setPromptCount(prevCount => {
             const nextCount = prevCount + 1
@@ -153,34 +175,34 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
                 alert(`Riven curou ${healedAmount} de vida`)
             }
 
-            setNumberRivenHP(prevHP => prevHP + healedAmount);
+            setLimitedNumberRivenHP(prevHP => prevHP + healedAmount);
         } else {
             alert("Por favor, insira um número válido.");
         }
     };
 
     const agulhaSangueRiven = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 8);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 8);
     }
 
     const musculoTonificarAmpliar = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 4);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 4);
     }
 
     const erupcaoPlasmatica = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 7);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 7);
     }
 
     const trovaoContracao = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 6);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 6);
     }
 
     const confusao = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 5);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 5);
     }
 
     const psybean = () => {
-        setNumberRivenMP((RivenMP) => RivenMP - 5);
+        setLimitedNumberRivenMP((RivenMP) => RivenMP - 5);
     }
 
     const [clickUltRiven, setClickUltRiven] = useState(0);
@@ -203,7 +225,7 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
     const regeneracao = () => {
         const heal = Math.floor(Math.random() * 4) + 1;
         const healing = numberRivenHP + heal;
-        setNumberRivenHP(healing)
+        setLimitedNumberRivenHP(healing)
 
         alert(`A cura gerada de 1d4 pela habilidade Regeneração foi: ${heal} de vida`)
     };
@@ -211,7 +233,7 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
     const gladiadorImortal = () => {
         const heal = Math.floor(Math.random() * 6) + 1;
         const healing = numberRivenHP + heal;
-        setNumberRivenHP(healing)
+        setLimitedNumberRivenHP(healing)
 
         alert(`A cura gerada de 1d6 pela habilidade Gladiador Imortal foi: ${heal} de vida`)
     };

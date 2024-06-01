@@ -51,18 +51,40 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
 
     const handleSubtractVlad = () => {
         const newValue = numberVladHP - subtractVlad;
-        setNumberVladHP(newValue);
+        setLimitedNumberVladHP(newValue);
     };
 
     const handleIncrementVlad = () => {
         const newValue = numberVladHP + incrementVlad;
-        setNumberVladHP(newValue);
+        setLimitedNumberVladHP(newValue);
     };
 
     const handleIncrementManaVlad = () => {
         const newValue = numberVladMP + incrementManaVlad;
-        setNumberVladMP(newValue);
-      };
+        setLimitedNumberVladMP(newValue);
+    };
+
+    const setLimitedNumberVladHP = (newHP: number | ((prevHP: number) => number)) => {
+        if (typeof newHP === 'function') {
+            setNumberVladHP((prevHP: number) => {
+                const result = newHP(prevHP);
+                return Math.max(0, Math.min(result, vladStatus.hp));
+            });
+        } else {
+            setNumberVladHP(Math.max(0, Math.min(newHP, vladStatus.hp)));
+        }
+    }
+
+    const setLimitedNumberVladMP = (newMP: number | ((prevMP: number) => number)) => {
+        if (typeof newMP === 'function') {
+            setNumberVladMP((prevMP: number) => {
+                const result = newMP(prevMP);
+                return Math.max(0, Math.min(result, vladStatus.mp));
+            });
+        } else {
+            setNumberVladMP(Math.max(0, Math.min(newMP, vladStatus.mp)));
+        }
+    }
 
     const [clickVladPassiva, setClickVladPassiva] = useState(0);
     const [buttonBorderColorVladPassiva, setButtonBorderColorVladPassiva] = useState("");
@@ -103,9 +125,9 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
 
                 const damageResult = numberVladHP - result
 
-                setNumberVladHP(damageResult)
+                setLimitedNumberVladHP(damageResult)
 
-                alert(`O dano que Vlad levou foi ${numeroDamage}, mas a resistencia de Vlad reduziu ${resistance} de dano que ela tomou, sendo assim o dano que Vlad levou foi reduzido para ${result}.`)
+                alert(`O dano que Vlad levou foi ${numeroDamage}, mas a resistencia de Vlad reduziu ${resistance} de dano que ele tomou, sendo assim o dano que Vlad levou foi reduzido para ${result}.`)
             } else {
                 alert("Por favor, insira um número válido.");
             }
@@ -117,7 +139,7 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
     const regeneracao = () => {
         const heal = Math.floor(Math.random() * 4) + 1;
         const healing = numberVladHP + heal;
-        setNumberVladHP(healing)
+        setLimitedNumberVladHP(healing)
 
         alert(`A cura gerada de 1d4 pela habilidade Regeneração foi: ${heal} de vida`)
     };
@@ -125,7 +147,7 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
     const gladiadorImortal = () => {
         const heal = Math.floor(Math.random() * 6) + 1;
         const healing = numberVladHP + heal;
-        setNumberVladHP(healing)
+        setLimitedNumberVladHP(healing)
 
         alert(`A cura gerada de 1d6 pela habilidade Gladiador Imortal foi: ${heal} de vida`)
     };
@@ -163,7 +185,7 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
     const [promptCount, setPromptCount] = useState(0);
 
     const transfusaoSanguinea = () => {
-        setNumberVladMP((vladMP) => vladMP - 6);
+        setLimitedNumberVladMP((vladMP) => vladMP - 6);
         
         setPromptCount(prevCount => {
             const nextCount = prevCount + 1
@@ -186,22 +208,22 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
                 alert(`Vlad curou ${healedAmount} de vida`)
             }
 
-            setNumberVladHP(prevHP => prevHP + healedAmount);
+            setLimitedNumberVladHP((prevHP: number) => prevHP + healedAmount);
         } else {
             alert("Por favor, insira um número válido.");
         }
     };
 
     const reflexoSanguineoVlad = () => {
-        setNumberVladMP((vladMP) => vladMP - 6);
+        setLimitedNumberVladMP((vladMP) => vladMP - 6);
     }
 
     const agulhaSangueVlad = () => {
-        setNumberVladMP((vladMP) => vladMP - 8);
+        setLimitedNumberVladMP((vladMP) => vladMP - 8);
     }
 
     const pinguinsVlad = () => {
-        setNumberVladMP((vladMP) => vladMP - 6);
+        setLimitedNumberVladMP((vladMP) => vladMP - 6);
     }
 
     const [clickUltVlad, setClickUltVlad] = useState(0);
@@ -310,65 +332,67 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
                         />
                         <button onClick={handleIncrementManaVlad} className="bg-blue-600 px-2 py-1 rounded-lg font-semibold uppercase text-gray-baldurText">mana</button>
                     </div>
-                    <div className="h-20 p-2 flex gap-2 mb-0.5">
-                        {skillsVlad.map((skill) => (
-                            <SkillBattle key={skill.name}
-                                name={skill.name}
-                                image={skill.image}
-                                magic={skill.magic}
-                                description={skill.description}
-                                type={skill.type}
-                                mana={skill.mana} 
-                                onClick={() => {
-                                    // Chama a função correta com base no nome da habilidade
-                                    switch (skill.name) {
-                                        case "Sangue de Ferro":
-                                            sangueDeFerro();
-                                            break;
-                                        case "Foco de Força":
-                                            focoDeForca();
-                                            break;
-                                        case "Regeneração":
-                                            regeneracao();
-                                            break;
-                                        case "Gladiador Imortal":
-                                            gladiadorImortal();
-                                            break;
-                                        case "Blood Armor":
-                                            bloodArmor();
-                                            break;
-                                        case "Blood Shield":
-                                            bloodShield();
-                                            break;
-                                        case "Transfusão Sanguínea":
-                                            transfusaoSanguinea();
-                                            break;
-                                        case "Reflexo Sanquíneo":
-                                            reflexoSanguineoVlad();
-                                            break;
-                                        case "Agulhas de Sangue":
-                                            agulhaSangueVlad();
-                                            break;
-                                        case "Pinguins Imperiais":
-                                            pinguinsVlad();
-                                            break;
-                                        case "Cães Infernais":
-                                            caesInfernais();
-                                            break;
-                                        default:
-                                            console.log("Habilidade não encontrada!");
-                                    }
-                                }}
-                                clickVladPassiva={skill.name === "Sangue de Ferro" ? clickVladPassiva : null}
-                                borderColorVladPassiva={skill.name === "Sangue de Ferro" ? buttonBorderColorVladPassiva : null}
-                                clickVladUlt={skill.name ==="Cães Infernais" ? clickUltVlad : null}
-                                borderColorVladUlt={skill.name ==="Cães Infernais" ? buttonBorderColorUltVlad : null}
-                                borderColorVladBloodArmor={skill.name ==="Blood Armor" ? buttonBorderColorVladBloodArmor : null}
-                                borderColorVladBloodShield={skill.name ==="Blood Shield" ? buttonBorderColorVladBloodShield : null}
-                                />
-                        ))}
-                        <div className="px-5 ml-36 bg-[url('/image/escudo-ca-battle.png')] bg-cover bg-center">
-                            <p className="text-black text-2xl font-bold py-4">{numberVladCA}</p>
+                    <div className="flex justify-between">
+                        <div className="h-20 p-2 flex gap-2 mb-0.5">
+                            {skillsVlad.map((skill) => (
+                                <SkillBattle key={skill.name}
+                                    name={skill.name}
+                                    image={skill.image}
+                                    magic={skill.magic}
+                                    description={skill.description}
+                                    type={skill.type}
+                                    mana={skill.mana} 
+                                    onClick={() => {
+                                        // Chama a função correta com base no nome da habilidade
+                                        switch (skill.name) {
+                                            case "Sangue de Ferro":
+                                                sangueDeFerro();
+                                                break;
+                                            case "Foco de Força":
+                                                focoDeForca();
+                                                break;
+                                            case "Regeneração":
+                                                regeneracao();
+                                                break;
+                                            case "Gladiador Imortal":
+                                                gladiadorImortal();
+                                                break;
+                                            case "Blood Armor":
+                                                bloodArmor();
+                                                break;
+                                            case "Blood Shield":
+                                                bloodShield();
+                                                break;
+                                            case "Transfusão Sanguínea":
+                                                transfusaoSanguinea();
+                                                break;
+                                            case "Reflexo Sanquíneo":
+                                                reflexoSanguineoVlad();
+                                                break;
+                                            case "Agulhas de Sangue":
+                                                agulhaSangueVlad();
+                                                break;
+                                            case "Pinguins Imperiais":
+                                                pinguinsVlad();
+                                                break;
+                                            case "Cães Infernais":
+                                                caesInfernais();
+                                                break;
+                                            default:
+                                                console.log("Habilidade não encontrada!");
+                                        }
+                                    }}
+                                    clickVladPassiva={skill.name === "Sangue de Ferro" ? clickVladPassiva : null}
+                                    borderColorVladPassiva={skill.name === "Sangue de Ferro" ? buttonBorderColorVladPassiva : null}
+                                    clickVladUlt={skill.name ==="Cães Infernais" ? clickUltVlad : null}
+                                    borderColorVladUlt={skill.name ==="Cães Infernais" ? buttonBorderColorUltVlad : null}
+                                    borderColorVladBloodArmor={skill.name ==="Blood Armor" ? buttonBorderColorVladBloodArmor : null}
+                                    borderColorVladBloodShield={skill.name ==="Blood Shield" ? buttonBorderColorVladBloodShield : null}
+                                    />
+                            ))}
+                        </div>
+                        <div className="px-5 bg-[url('/image/escudo-ca-battle.png')] bg-cover bg-center">
+                            <p className="text-black text-2xl font-bold py-6">{numberVladCA}</p>
                         </div>
                     </div>
                     <div className="w-full h-10 border-2 bg-gray-300 text-center text-xl font-bold text-black border-black relative">

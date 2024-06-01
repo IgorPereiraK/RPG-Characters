@@ -18,15 +18,23 @@ import { characterInfo } from "../data/characterInfo";
 import { anotacoesAlexia } from "../data/textoCharacters";
 import ButtonProficienciaAlexia from "../buttons/buttonProficienciaAlexia";
 
+
 export default function CharacterBattleAlexia() {
 
     const [numberAlexiaHP, setNumberAlexiaHP] = useState<number>(alexiaStatus.hp)
     const [numberAlexiaMP, setNumberAlexiaMP] = useState<number>(alexiaStatus.mp)
-    const [numberAlexiaCA] = useState<number>(alexiaStatus.ca)
+    const [numberAlexiaCA, setNumberAlexiaCA] = useState<number>(alexiaStatus.ca)
     const [numberAlexiaCarga, setNumberAlexiaCarga] = useState<number | undefined>(alexiaStatus.carga)
+    const [numberAlexiaAtaque, setNumberAlexiaAtaque] = useState<number>(alexiaStatus.inteligenciaModificador)
     const [incrementAlexia, setIncrementAlexia] = useState<number>(0);
     const [subtractAlexia, setSubtractAlexia] = useState<number>(0);
     const [incrementManaAlexia, setIncrementManaAlexia] = useState<number>(0);
+
+    const [modificadorForcaAlexia, setModificadorForcaAlexia] = useState<number>(alexiaStatus.forcaModificador)
+    const [modificadorDestrezaAlexia, setModificadorDestrezaAlexia] = useState<number>(alexiaStatus.destrezaModificador)
+    const [modificadorInteligenciaAlexia, setModificadorInteligenciaAlexia] = useState<number>(alexiaStatus.inteligenciaModificador)
+    const [modificadorConstituicaoAlexia, setModificadorConstituicaoAlexia] = useState<number>(alexiaStatus.constituicaoModificador)
+    const [modificadorSabedoriaAlexia, setModificadorSabedoriaAlexia] = useState<number>(alexiaStatus.sabedoriaModificador)
 
     const healthPercentageAlexia = (numberAlexiaHP / alexiaStatus.hp) * 100
     const manaPercentageAlexia = (numberAlexiaMP / alexiaStatus.mp) * 100
@@ -48,51 +56,100 @@ export default function CharacterBattleAlexia() {
 
     const handleSubtractAlexia = () => {
         const newValue = numberAlexiaHP - subtractAlexia;
-        setNumberAlexiaHP(newValue);
+        setLimitedNumberAlexiaHP(newValue);
     };
 
     const handleIncrementAlexia = () => {
         const newValue = numberAlexiaHP + incrementAlexia;
-        setNumberAlexiaHP(newValue);
+        setLimitedNumberAlexiaHP(newValue);
     };
 
     const handleIncrementManaAlexia = () => {
         const newValue = numberAlexiaMP + incrementManaAlexia;
-        setNumberAlexiaMP(newValue);
-      };
+        setLimitedNumberAlexiaMP(newValue);
+    };
 
-      const [clickAlexiaPassiva, setClickAlexiaPassiva] = useState(0);
-      const [buttonBorderColorAlexiaPassiva, setButtonBorderColorAlexiaPassiva] = useState("");
+    const setLimitedNumberAlexiaHP = (newHP: number | ((prevHP: number) => number)) => {
+        if (typeof newHP === 'function') {
+            setNumberAlexiaHP((prevHP: number) => {
+                const result = newHP(prevHP);
+                return Math.max(0, Math.min(result, alexiaStatus.hp));
+            });
+        } else {
+            setNumberAlexiaHP(Math.max(0, Math.min(newHP, alexiaStatus.hp)));
+        }
+    }
+
+    const setLimitedNumberAlexiaMP = (newMP: number | ((prevMP: number) => number)) => {
+        if (typeof newMP === 'function') {
+            setNumberAlexiaMP((prevMP: number) => {
+                const result = newMP(prevMP);
+                return Math.max(0, Math.min(result, alexiaStatus.mp));
+            });
+        } else {
+            setNumberAlexiaMP(Math.max(0, Math.min(newMP, alexiaStatus.mp)));
+        }
+    }
+
+    const [clickAlexiaPassiva, setClickAlexiaPassiva] = useState(0);
+    const [buttonBorderColorAlexiaPassiva, setButtonBorderColorAlexiaPassiva] = useState("");
   
   
-      const tiroPerfurante = () => {
-          if (clickAlexiaPassiva === 2) {
-              alert("Passiva da Alexia pronta!");
-              setClickAlexiaPassiva(3);
-              setButtonBorderColorAlexiaPassiva("blue");
-          } else if (clickAlexiaPassiva < 2) {
-              setClickAlexiaPassiva(clickAlexiaPassiva + 1);
-              setButtonBorderColorAlexiaPassiva("");
-          } else if (clickAlexiaPassiva === 3) {
-              setClickAlexiaPassiva(0);
-              setButtonBorderColorAlexiaPassiva("");
-          }
-      }
+    const tiroPerfurante = () => {
+        if (clickAlexiaPassiva === 2) {
+            alert("Passiva da Alexia pronta!");
+            setClickAlexiaPassiva(3);
+            setButtonBorderColorAlexiaPassiva("blue");
+        } else if (clickAlexiaPassiva < 2) {
+            setClickAlexiaPassiva(clickAlexiaPassiva + 1);
+            setButtonBorderColorAlexiaPassiva("");
+        } else if (clickAlexiaPassiva === 3) {
+            setClickAlexiaPassiva(0);
+            setButtonBorderColorAlexiaPassiva("");
+        }
+    }
+
+    const [clickAlexiaArmaduraHightec, setClickAlexiaArmaduraHightec] = useState(0);
+    const [buttonBorderColorAlexiaArmaduraHightec, setButtonBorderColorAlexiaArmaduraHightec] = useState("");
+
+    const armaduraHightec = () => {
+        if (clickAlexiaArmaduraHightec === 1) {
+            setModificadorForcaAlexia((statusForca) => statusForca - 2)
+            setModificadorDestrezaAlexia((statusDestreza) => statusDestreza - 2)
+            setModificadorInteligenciaAlexia((statusInteligencia) => statusInteligencia - 2)
+            setModificadorConstituicaoAlexia((statusConstituicao) => statusConstituicao - 2)
+            setModificadorSabedoriaAlexia((statusSabedoria) => statusSabedoria - 2)
+            setNumberAlexiaCA((AlexiaCA) => AlexiaCA - 2)
+            setNumberAlexiaAtaque((AlexiaAtaque) => AlexiaAtaque - 2)
+            setButtonBorderColorAlexiaArmaduraHightec("")
+            setClickAlexiaArmaduraHightec(0)
+        } else {
+            setClickAlexiaArmaduraHightec(clickAlexiaArmaduraHightec + 1)
+            setModificadorForcaAlexia((statusForca) => statusForca + 2)
+            setModificadorDestrezaAlexia((statusDestreza) => statusDestreza + 2)
+            setModificadorInteligenciaAlexia((statusInteligencia) => statusInteligencia + 2)
+            setModificadorConstituicaoAlexia((statusConstituicao) => statusConstituicao + 2)
+            setModificadorSabedoriaAlexia((statusSabedoria) => statusSabedoria + 2)
+            setNumberAlexiaCA((AlexiaCA) => AlexiaCA + 2)
+            setNumberAlexiaAtaque((AlexiaAtaque) => AlexiaAtaque + 2)
+            setButtonBorderColorAlexiaArmaduraHightec("red")
+        }
+    }
       
     const olhoCoruja = () => {
-        setNumberAlexiaMP((alexiaMP) => alexiaMP - 4);
-      }
+        setLimitedNumberAlexiaMP((alexiaMP) => alexiaMP - 4);
+    }
   
     const droneAuxiliar = () => {
         setNumberAlexiaCarga((alexiaCG) => (alexiaCG !== undefined ? alexiaCG - 1 : 0));
       }
   
     const trincamentoExistente = () => {
-        setNumberAlexiaMP((alexiaMP) => alexiaMP - 6);
+        setLimitedNumberAlexiaMP((alexiaMP) => alexiaMP - 6);
       }
   
     const corvosFabulusos = () => {
-        setNumberAlexiaMP((alexiaMP) => alexiaMP - 5);
+        setLimitedNumberAlexiaMP((alexiaMP) => alexiaMP - 5);
     }
 
     const repulsãoEletrica = () => {
@@ -200,61 +257,73 @@ export default function CharacterBattleAlexia() {
                         />
                         <button onClick={handleIncrementManaAlexia} className="bg-blue-600 px-2 py-1 rounded-lg font-semibold uppercase text-gray-baldurText">mana</button>
                     </div>
-                    <div className="h-20 p-2 flex gap-2 mb-0.5">
-                    {skillsAlexia.map((skill) => (
-                            <SkillBattle key={skill.name}
-                                name={skill.name}
-                                image={skill.image}
-                                magic={skill.magic}
-                                description={skill.description}
-                                type={skill.type}
-                                mana={skill.mana} 
-                                onClick={() => {
-                                    // Chama a função correta com base no nome da habilidade
-                                    switch (skill.name) {
-                                        case "Olhar da Coruja":
-                                            olhoCoruja();
-                                            break;
-                                        case "Drone Auxiliar":
-                                            droneAuxiliar();
-                                            break;
-                                        case "Tiro Perfurante":
-                                            tiroPerfurante();
-                                            break;
-                                        case "Trincamento sobre Existente":
-                                            trincamentoExistente();
-                                            break;
-                                        case "Corvos Fabulosos":
-                                            corvosFabulusos();
-                                            break;
-                                        case "Repulsão Elétrica":
-                                            repulsãoEletrica();
-                                            break;
-                                        case "Adagas Elétrica":
-                                            adagasEletrica();
-                                            break;
-                                        case "Anjo Vampírico":
-                                            anjoAndMissil();
-                                            break;
-                                        case "Míssil Tecnoarcano":
-                                            anjoAndMissil();
-                                            break;
-                                        default:
-                                            console.log("Habilidade não encontrada!");
-                                    }
-                                }}
-                                clickAlexiaPassiva={skill.name === "Tiro Perfurante" ? clickAlexiaPassiva : null}
-                                borderColorAlexiaPassiva={skill.name === "Tiro Perfurante" ? buttonBorderColorAlexiaPassiva : null}
-                                clickAlexiaUlt={skill.name ==="Anjo Vampírico" || skill.name === "Míssil Tecnoarcano" ? clickUltAlexia : null}
-                                borderColorAlexiaUlt={skill.name ==="Anjo Vampírico" || skill.name === "Míssil Tecnoarcano" ? buttonBorderColorUltAlexia : null}
-                                />
-                        ))}
-                        <div className="px-5 ml-44 bg-[url('/image/carga-eletrica.png')] bg-cover bg-center">
-                            <p className="text-black text-2xl font-bold py-4 px-2">{numberAlexiaCarga}</p>
+                    <div className="flex justify-between">
+                        <div className="h-20 p-2 flex gap-2 mb-0.5">
+                            {skillsAlexia.map((skill) => (
+                                <SkillBattle key={skill.name}
+                                    name={skill.name}
+                                    image={skill.image}
+                                    magic={skill.magic}
+                                    description={skill.description}
+                                    type={skill.type}
+                                    mana={skill.mana} 
+                                    onClick={() => {
+                                        // Chama a função correta com base no nome da habilidade
+                                        switch (skill.name) {
+                                            case "Olhar da Coruja":
+                                                olhoCoruja();
+                                                break;
+                                            case "Drone Auxiliar":
+                                                droneAuxiliar();
+                                                break;
+                                            case "Tiro Perfurante":
+                                                tiroPerfurante();
+                                                break;
+                                            case "Armadura Hightec":
+                                                armaduraHightec();
+                                                break;
+                                            case "Trincamento sobre Existente":
+                                                trincamentoExistente();
+                                                break;
+                                            case "Corvos Fabulosos":
+                                                corvosFabulusos();
+                                                break;
+                                            case "Repulsão Elétrica":
+                                                repulsãoEletrica();
+                                                break;
+                                            case "Adagas Elétrica":
+                                                adagasEletrica();
+                                                break;
+                                            case "Anjo Vampírico":
+                                                anjoAndMissil();
+                                                break;
+                                            case "Míssil Tecnoarcano":
+                                                anjoAndMissil();
+                                                break;
+                                            default:
+                                                console.log("Habilidade não encontrada!");
+                                        }
+                                    }}
+                                    clickAlexiaPassiva={skill.name === "Tiro Perfurante" ? clickAlexiaPassiva : null}
+                                    borderColorAlexiaPassiva={skill.name === "Tiro Perfurante" ? buttonBorderColorAlexiaPassiva : null}
+                                    borderColorAlexiaArmaduraHightec={skill.name === "Armadura Hightec" ? buttonBorderColorAlexiaArmaduraHightec : null}
+                                    clickAlexiaUlt={skill.name ==="Anjo Vampírico" || skill.name === "Míssil Tecnoarcano" ? clickUltAlexia : null}
+                                    borderColorAlexiaUlt={skill.name ==="Anjo Vampírico" || skill.name === "Míssil Tecnoarcano" ? buttonBorderColorUltAlexia : null}
+                                    />
+                            ))}
                         </div>
-                        <div className="px-5 bg-[url('/image/escudo-ca-battle.png')] bg-cover bg-center">
-                            <p className="text-black text-2xl font-bold py-4">{numberAlexiaCA}</p>
-                        </div>
+                            <div className="flex">
+                                <div className="text-center py-3">
+                                    <p className="text-gray-baldurText font-bold uppercase">Ataque</p>
+                                    <p className="text-gray-baldurText text-2xl font-bold">+{numberAlexiaAtaque}</p>
+                                </div>
+                                <div className="px-5 bg-[url('/image/carga-eletrica.png')] bg-cover bg-center">
+                                    <p className="text-black text-2xl font-bold py-6 px-2">{numberAlexiaCarga}</p>
+                                </div>
+                                <div className="px-5 bg-[url('/image/escudo-ca-battle.png')] bg-cover bg-center">
+                                    <p className="text-black text-2xl font-bold py-6">{numberAlexiaCA}</p>
+                                </div>
+                            </div>
                     </div>
                     <div className="w-full h-10 border-2 bg-gray-300 text-center text-xl font-bold text-black border-black relative">
                         <div
@@ -285,32 +354,32 @@ export default function CharacterBattleAlexia() {
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Força</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{alexiaStatus.forcaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{alexiaStatus.forcaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{modificadorForcaAlexia}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder  px-4 py-2">Destreza</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{alexiaStatus.destrezaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{alexiaStatus.destrezaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{modificadorDestrezaAlexia}</td>
                             </tr>
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Constituição</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{alexiaStatus.constituicaoValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{alexiaStatus.constituicaoModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{modificadorConstituicaoAlexia}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Inteligência</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{alexiaStatus.inteligenciaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{alexiaStatus.inteligenciaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{modificadorInteligenciaAlexia}</td>
                             </tr>
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Carisma</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{alexiaStatus.carismaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{alexiaStatus.carismaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{alexiaStatus.carismaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Sabedoria</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{alexiaStatus.sabedoriaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{alexiaStatus.sabedoriaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{modificadorSabedoriaAlexia}</td>
                             </tr>
                         </tbody>
                     </table>

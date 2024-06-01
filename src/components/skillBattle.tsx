@@ -13,7 +13,7 @@ import {
   
   export default function SkillBattle({name, image, magic, description, type, mana, onClick, clickVladPassiva, 
     borderColorVladPassiva, clickVladUlt, borderColorVladUlt, borderColorVladBloodArmor, borderColorVladBloodShield, 
-    clickAlexiaPassiva, borderColorAlexiaPassiva, clickAlexiaUlt, borderColorAlexiaUlt, clickRivenPassiva, borderColorRivenPassiva, borderColorRivenBloodArmor, clickRivenUlt, borderColorRivenUlt}: Skills) {
+    clickAlexiaPassiva, borderColorAlexiaPassiva, clickAlexiaUlt, borderColorAlexiaUlt, clickRivenPassiva, borderColorRivenPassiva, borderColorRivenBloodArmor, clickRivenUlt, borderColorRivenUlt, borderColorAlexiaArmaduraHightec}: Skills) {
     const borderColors: BorderColors = {
       "Sangue de Ferro": borderColorVladPassiva,
       "Cães Infernais": borderColorVladUlt,
@@ -26,6 +26,7 @@ import {
       "Blood Armor R": borderColorRivenBloodArmor,
       "Cães Infernais R": borderColorRivenUlt,
       "Demon Back": borderColorRivenUlt,
+      "Armadura Hightec": borderColorAlexiaArmaduraHightec
   };
 
     return (

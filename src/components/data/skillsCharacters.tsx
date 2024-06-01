@@ -235,6 +235,22 @@ export const skillsAlexia: Skills[] = [
         ),
     },
     {
+        name: 'Armadura Hightec',
+        image: './image/AlexaARM.jpg',
+        magic: 'Passiva da Armadura',
+        description: (
+            <div>
+                <p>Essa Armadura hightec aumenta <span className="text-yellow-300">+2 em todos os atributos</span> de Alexia e ela ganha <span className="text-yellow-300">10% de armadura global</span>.</p>
+            </div>
+        ),
+        type: (
+            <div>
+                <span className="inline-block w-3 h-3 bg-orange-500 rounded-full mr-1"></span>
+                <span>Ação Bônus</span>
+            </div>
+        ),
+    },
+    {
         name: 'Olhar da Coruja',
         image: './image/olhoA.png',
         magic: 'Magia de Transmutação',

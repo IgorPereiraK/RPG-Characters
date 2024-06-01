@@ -4,6 +4,7 @@ import CharacterBattleRiven from "../components/charactersBattle/characterBattle
 import CharacterBattleVlad from "../components/charactersBattle/characterbattleVlad";
 import ContainerTurn from "../components/container/containerTurn";
 
+
 export default function Battle() {
     const [vladSkillCharge, setVladSkillCharge] = useState<number>(0);
     const [rivenSkillCharge, setRivenSkillCharge] = useState<number>(0);
@@ -19,7 +20,7 @@ export default function Battle() {
 
     return (
         <div className="bg-gray-baldurBg h-[1400px] text-gray-baldurText">
-            <ContainerTurn updateSkillVlad={updateVladSkillCharge} updateSkillRiven={updateRivenSkillCharge}/>
+            <ContainerTurn updateSkillVlad={updateVladSkillCharge} updateSkillRiven={updateRivenSkillCharge} />
             <CharacterBattleVlad skillCharge={vladSkillCharge}/>
             <CharacterBattleAlexia />
             <CharacterBattleRiven skillCharge={rivenSkillCharge}/>

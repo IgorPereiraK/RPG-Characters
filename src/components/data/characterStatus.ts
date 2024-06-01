@@ -43,17 +43,17 @@ export const vladStatus: CharacterStatus = {
     ModificadorReli: 2,
     ModificadorSobr: 3,
     forcaValor: "9",
-    forcaModificador: "-1",
+    forcaModificador: -1,
     destrezaValor: "14",
-    destrezaModificador: "+2",
+    destrezaModificador: 2,
     constituicaoValor: "20",
-    constituicaoModificador: "+5",
+    constituicaoModificador: 5,
     inteligenciaValor: "16",
-    inteligenciaModificador: "+3",
+    inteligenciaModificador: 3,
     carismaValor: "12",
-    carismaModificador: "+1",
+    carismaModificador: 1,
     sabedoriaValor: "11",
-    sabedoriaModificador: "+0"
+    sabedoriaModificador: 0
 }
 
 export const alexiaStatus: CharacterStatus = {
@@ -104,17 +104,17 @@ export const alexiaStatus: CharacterStatus = {
     ModificadorReli: 1,
     ModificadorSobr: 2,
     forcaValor: "9",
-    forcaModificador: "-1",
+    forcaModificador: -1,
     destrezaValor: "16",
-    destrezaModificador: "+3",
+    destrezaModificador: 3,
     constituicaoValor: "17",
-    constituicaoModificador: "+3",
+    constituicaoModificador: 3,
     inteligenciaValor: "20",
-    inteligenciaModificador: "+5",
+    inteligenciaModificador: 5,
     carismaValor: "10",
-    carismaModificador: "+0",
+    carismaModificador: +0,
     sabedoriaValor: "12",
-    sabedoriaModificador: "+1"
+    sabedoriaModificador: 1
 }
 
 export const rivenStatus: CharacterStatus = {
@@ -168,15 +168,15 @@ export const rivenStatus: CharacterStatus = {
     ModificadorReli: 1,
     ModificadorSobr: 3,
     forcaValor: "18",
-    forcaModificador: "+4",
+    forcaModificador: 4,
     destrezaValor: "22",
-    destrezaModificador: "+6",
+    destrezaModificador: 6,
     constituicaoValor: "26",
-    constituicaoModificador: "+8",
+    constituicaoModificador: 8,
     inteligenciaValor: "10",
-    inteligenciaModificador: "+0",
+    inteligenciaModificador: 0,
     carismaValor: "12",
-    carismaModificador: "+1",
+    carismaModificador: 1,
     sabedoriaValor: "8",
-    sabedoriaModificador: "-1"
+    sabedoriaModificador: -1,
 }

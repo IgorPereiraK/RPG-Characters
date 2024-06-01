@@ -50,15 +50,15 @@ export type CharacterStatus = {
     ModificadorReli: number
     ModificadorSobr: number
     forcaValor: string
-    forcaModificador: string
+    forcaModificador: number
     destrezaValor: string
-    destrezaModificador: string
+    destrezaModificador: number
     constituicaoValor: string
-    constituicaoModificador: string
+    constituicaoModificador: number
     inteligenciaValor: string
-    inteligenciaModificador: string
+    inteligenciaModificador: number
     carismaValor: string
-    carismaModificador: string
+    carismaModificador: number
     sabedoriaValor: string
-    sabedoriaModificador: string
+    sabedoriaModificador: number
 };

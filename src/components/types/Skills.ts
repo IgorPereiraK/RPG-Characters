@@ -21,4 +21,5 @@ export type Skills = {
     borderColorRivenBloodArmor?: string | null
     clickRivenUlt?: React.ReactNode | string
     borderColorRivenUlt?: string | null
+    borderColorAlexiaArmaduraHightec?: string | null
 }
