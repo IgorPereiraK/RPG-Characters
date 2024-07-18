@@ -429,27 +429,27 @@ export default function CharacterBattleVlad({skillCharge}: CharacterBattleVladPr
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder  px-4 py-2">Destreza</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{vladStatus.destrezaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{vladStatus.destrezaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{vladStatus.destrezaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Constituição</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{vladStatus.constituicaoValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{vladStatus.constituicaoModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{vladStatus.constituicaoModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Inteligência</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{vladStatus.inteligenciaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{vladStatus.inteligenciaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{vladStatus.inteligenciaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Carisma</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{vladStatus.carismaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{vladStatus.carismaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{vladStatus.carismaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Sabedoria</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{vladStatus.sabedoriaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{vladStatus.sabedoriaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{vladStatus.sabedoriaModificador}</td>
                             </tr>
                         </tbody>
                     </table>

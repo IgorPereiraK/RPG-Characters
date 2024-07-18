@@ -426,27 +426,27 @@ export default function CharacterBattleRiven({skillCharge}: CharacterBattleRiven
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Força</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{rivenStatus.forcaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{rivenStatus.forcaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{rivenStatus.forcaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder  px-4 py-2">Destreza</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{rivenStatus.destrezaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{rivenStatus.destrezaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{rivenStatus.destrezaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Constituição</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{rivenStatus.constituicaoValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{rivenStatus.constituicaoModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{rivenStatus.constituicaoModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Inteligência</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{rivenStatus.inteligenciaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{rivenStatus.inteligenciaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{rivenStatus.inteligenciaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur4 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Carisma</td>
                                 <td className="border border-gray-baldurBorder px-8 py-2 text-center">{rivenStatus.carismaValor}</td>
-                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">{rivenStatus.carismaModificador}</td>
+                                <td className="border border-gray-baldurBorder px-12 py-2 text-center">+{rivenStatus.carismaModificador}</td>
                             </tr>
                             <tr className="bg-gray-baldur5 text-gray-baldurText">
                                 <td className="border border-gray-baldurBorder px-4 py-2">Sabedoria</td>

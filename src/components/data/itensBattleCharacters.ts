@@ -4,7 +4,7 @@ export const armasDeVlad: Item[] = [
     {
         imagem: './image/VladAP.jpg',
         name: 'Malorian and Jackal',
-        dano: 'Dano: 2d12+CONST',
+        dano: 'Dano: 2d8+CONST',
         texto: 'Duas Pistolas de canos logos que tem como munição balas de prata, uma arma feita especialmente para matar vampiros.'
     },
     {
