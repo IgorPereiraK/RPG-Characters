@@ -62,7 +62,7 @@ export const alexiaStatus: CharacterStatus = {
   hp: 139,
   mp: 83,
   ca: 18,
-  carga: 365,
+  carga: 362,
   proficiencia1: "Mecânica (Int)",
   proficiencia2: "Robótica (Int)",
   proficienciaAcro: "Acrobacia (Des)",
