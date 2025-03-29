@@ -88,6 +88,13 @@ export const armasDeRiven: Item[] = [
     texto: "Luvas usada para Riven bater em seus adversários.",
   },
   {
+    imagem: "./image/adagaLuz.jpg",
+    name: "Adaga de Luz",
+    dano: "Dano: 1d10+FOR",
+    texto:
+      "Essas são a adaga de luz do clã Alucard, essa arma um vez já foi usada pela própria irmã de Vlad, a Riven do Clã Alucard, essa adaga causa 4 vezes mais dano em criaturas da noite.",
+  },
+  {
     imagem: "./image/RivenAS3.webp",
     name: "Espada do Velho Oeste",
     dano: "Dano: 2d6+FOR",
