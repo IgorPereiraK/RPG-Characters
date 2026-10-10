@@ -8,24 +8,21 @@ const CharacterGrid: React.FC = () => {
       name: 'Vlad Alucard',
       class: 'Hemomante',
       image: '/image/Vlad-Alucard.jpg',
-      description: 'Ex-caçador de monstros transformado em vampiro. Mestre da hemomancia e combate corpo-a-corpo.',
-      bgColor: '#e53935'
+      description: 'Ex-caçador de monstros transformado em vampiro. Mestre da hemomancia e combate corpo-a-corpo.'
     },
     {
       id: 'alexia',
       name: 'Alexia Volier',
       class: 'Tecnomante',
       image: '/image/Alexia.png',
-      description: 'Vampira especialista em tecnologia e armas de fogo. Combina magia e ciência.',
-      bgColor: '#1e88e5'
+      description: 'Vampira especialista em tecnologia e armas de fogo. Combina magia e ciência.'
     },
     {
       id: 'riven',
       name: 'Riven Alucard',
       class: 'Druida e Hemomante',
       image: '/image/Riven.png',
-      description: 'Clone vampiro com poderes da natureza. Híbrida de magia arcana e primal.',
-      bgColor: '#43a047'
+      description: 'Clone vampiro com poderes da natureza. Híbrida de magia arcana e primal.'
     }
   ];
 
@@ -39,7 +36,6 @@ const CharacterGrid: React.FC = () => {
           class={character.class}
           image={character.image}
           description={character.description}
-          bgColor={character.bgColor}
         />
       ))}
     </div>
