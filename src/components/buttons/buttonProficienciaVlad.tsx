@@ -10,16 +10,18 @@ import {
 
 type StatusCharacter = {
     vladStatus: any
+    variant?: "classic" | "mesa"
 }
 
-export default function ButtonProficienciaVlad({vladStatus}: StatusCharacter) {
+export default function ButtonProficienciaVlad({vladStatus, variant = "classic"}: StatusCharacter) {
+    const mesa = variant === "mesa"
     return (
-        <button className="bg-gray-baldur4 border-gray-baldurBorder py-2 text-center text-gray-baldurText border-x border-b">
+        <button className={mesa ? "w-full" : "bg-gray-baldur4 border-gray-baldurBorder py-2 text-center text-gray-baldurText border-x border-b"}>
                         <Dialog>
                             <DialogTrigger className="w-full">
                             <h3>Proficiência</h3>
                             </DialogTrigger>
-                            <DialogContent className="bg-gray-baldurBgSecond text-gray-baldurText">
+                            <DialogContent className={mesa ? "mesa-dialog" : "bg-gray-baldurBgSecond text-gray-baldurText"}>
                                 <DialogHeader>
                                 <DialogTitle>Suas Proficiência</DialogTitle>
                                 <DialogDescription className="mx-auto">

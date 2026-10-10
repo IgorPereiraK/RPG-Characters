@@ -7,12 +7,11 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 
-import { useState } from "react";
 import { alexiaStatus } from "../data/characterStatus";
 import { skillsAlexia } from "../data/skillsCharacters";
 import SkillBattle from "../skillBattle";
-import SelectArmorButtonAlexia from "../selectItensCharacters/selectArmorButtonAlexia";
-import SelectItemButtonAlexia from "../selectItensCharacters/selectItemButtonAlexia";
+import { useBattleSession } from "../../battle/BattleSession";
+import GearDialog from "../../battle/GearDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatarSmall";
 import { characterInfo } from "../data/characterInfo";
 import { anotacoesAlexia } from "../data/textoCharacters";
@@ -20,230 +19,58 @@ import ButtonProficienciaAlexia from "../buttons/buttonProficienciaAlexia";
 import { secondSkillsAlexia } from "../data/secondSkillCharacters";
 
 export default function CharacterBattleAlexia() {
-  const [numberAlexiaHP, setNumberAlexiaHP] = useState<number>(alexiaStatus.hp);
-  const [numberAlexiaMP, setNumberAlexiaMP] = useState<number>(alexiaStatus.mp);
-  const [numberAlexiaCA, setNumberAlexiaCA] = useState<number>(alexiaStatus.ca);
-  const [numberAlexiaCarga, setNumberAlexiaCarga] = useState<
-    number | undefined
-  >(alexiaStatus.carga);
-  const [numberAlexiaAtaque, setNumberAlexiaAtaque] = useState<number>(
-    alexiaStatus.inteligenciaModificador
-  );
-  const [incrementAlexia, setIncrementAlexia] = useState<number>(0);
-  const [subtractAlexia, setSubtractAlexia] = useState<number>(0);
-  const [incrementManaAlexia, setIncrementManaAlexia] = useState<number>(0);
-
-  const [modificadorForcaAlexia, setModificadorForcaAlexia] = useState<number>(
-    alexiaStatus.forcaModificador
-  );
-  const [modificadorDestrezaAlexia, setModificadorDestrezaAlexia] =
-    useState<number>(alexiaStatus.destrezaModificador);
-  const [modificadorInteligenciaAlexia, setModificadorInteligenciaAlexia] =
-    useState<number>(alexiaStatus.inteligenciaModificador);
-  const [modificadorConstituicaoAlexia, setModificadorConstituicaoAlexia] =
-    useState<number>(alexiaStatus.constituicaoModificador);
-  const [modificadorSabedoriaAlexia, setModificadorSabedoriaAlexia] =
-    useState<number>(alexiaStatus.sabedoriaModificador);
+  const fighter = useBattleSession().alexia;
+  const numberAlexiaHP = fighter.hp;
+  const numberAlexiaMP = fighter.mp;
+  const numberAlexiaCA = fighter.ca;
+  const numberAlexiaCarga = fighter.carga;
+  const numberAlexiaAtaque = fighter.ataque;
+  const incrementAlexia = fighter.healInput;
+  const subtractAlexia = fighter.damageInput;
+  const incrementManaAlexia = fighter.manaInput;
+  const modificadorForcaAlexia = fighter.forcaMod;
+  const modificadorDestrezaAlexia = fighter.destrezaMod;
+  const modificadorInteligenciaAlexia = fighter.inteligenciaMod;
+  const modificadorConstituicaoAlexia = fighter.constituicaoMod;
+  const modificadorSabedoriaAlexia = fighter.sabedoriaMod;
+  const clickAlexiaPassiva = fighter.passiva;
+  const buttonBorderColorAlexiaPassiva = fighter.passivaBorder;
+  const buttonBorderColorAlexiaArmaduraHightec = fighter.hightecBorder;
+  const clickUltAlexia = fighter.ult;
+  const buttonBorderColorUltAlexia = fighter.ultBorder;
 
   const healthPercentageAlexia = (numberAlexiaHP / alexiaStatus.hp) * 100;
   const manaPercentageAlexia = (numberAlexiaMP / alexiaStatus.mp) * 100;
 
-  const handleChangeIncrementAlexia = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setIncrementAlexia(value);
+  const readNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    return Number.isNaN(value) ? 0 : value;
   };
 
-  const handleChangeSubtractAlexia = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setSubtractAlexia(value);
+  const handleChangeIncrementAlexia = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setHealInput(readNumber(event));
   };
-
-  const handleChangeIncrementManaAlexia = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setIncrementManaAlexia(value);
+  const handleChangeSubtractAlexia = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setDamageInput(readNumber(event));
   };
-
-  const handleSubtractAlexia = () => {
-    const newValue = numberAlexiaHP - subtractAlexia;
-    setLimitedNumberAlexiaHP(newValue);
+  const handleChangeIncrementManaAlexia = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setManaInput(readNumber(event));
   };
+  const handleSubtractAlexia = fighter.applyDamage;
+  const handleIncrementAlexia = fighter.applyHeal;
+  const handleIncrementManaAlexia = fighter.applyMana;
+  const tiroPerfurante = () => fighter.useSkill("Tiro Perfurante");
+  const armaduraHightec = () => fighter.useSkill("Armadura Hightec");
+  const olhoCoruja = () => fighter.useSkill("Olhar da Coruja");
+  const droneAuxiliar = () => fighter.useSkill("Drone Auxiliar");
+  const trincamentoExistente = () => fighter.useSkill("Trincamento sobre Existente");
+  const corvosFabulusos = () => fighter.useSkill("Corvos Fabulosos");
+  const repulsãoEletrica = () => fighter.useSkill("Repulsão Elétrica");
+  const adagasEletrica = () => fighter.useSkill("Adagas Elétrica");
+  const marcaSangue = () => fighter.useSkill("Marca de Sangue");
+  const defesaHightec = () => fighter.useSkill("Defesa Hightec");
+  const anjoAndMissil = () => fighter.useSkill("Anjo Vampírico");
 
-  const handleIncrementAlexia = () => {
-    const newValue = numberAlexiaHP + incrementAlexia;
-    setLimitedNumberAlexiaHP(newValue);
-  };
-
-  const handleIncrementManaAlexia = () => {
-    const newValue = numberAlexiaMP + incrementManaAlexia;
-    setLimitedNumberAlexiaMP(newValue);
-  };
-
-  const setLimitedNumberAlexiaHP = (
-    newHP: number | ((prevHP: number) => number)
-  ) => {
-    if (typeof newHP === "function") {
-      setNumberAlexiaHP((prevHP: number) => {
-        const result = newHP(prevHP);
-        return Math.max(0, Math.min(result, alexiaStatus.hp));
-      });
-    } else {
-      setNumberAlexiaHP(Math.max(0, Math.min(newHP, alexiaStatus.hp)));
-    }
-  };
-
-  const setLimitedNumberAlexiaMP = (
-    newMP: number | ((prevMP: number) => number)
-  ) => {
-    if (typeof newMP === "function") {
-      setNumberAlexiaMP((prevMP: number) => {
-        const result = newMP(prevMP);
-        return Math.max(0, Math.min(result, alexiaStatus.mp));
-      });
-    } else {
-      setNumberAlexiaMP(Math.max(0, Math.min(newMP, alexiaStatus.mp)));
-    }
-  };
-
-  const [clickAlexiaPassiva, setClickAlexiaPassiva] = useState(0);
-  const [buttonBorderColorAlexiaPassiva, setButtonBorderColorAlexiaPassiva] =
-    useState("");
-
-  const tiroPerfurante = () => {
-    if (clickAlexiaPassiva === 2) {
-      alert("Passiva da Alexia pronta!");
-      setClickAlexiaPassiva(3);
-      setButtonBorderColorAlexiaPassiva("blue");
-    } else if (clickAlexiaPassiva < 2) {
-      setClickAlexiaPassiva(clickAlexiaPassiva + 1);
-      setButtonBorderColorAlexiaPassiva("");
-    } else if (clickAlexiaPassiva === 3) {
-      setClickAlexiaPassiva(0);
-      setButtonBorderColorAlexiaPassiva("");
-    }
-  };
-
-  const [clickAlexiaArmaduraHightec, setClickAlexiaArmaduraHightec] =
-    useState(0);
-  const [
-    buttonBorderColorAlexiaArmaduraHightec,
-    setButtonBorderColorAlexiaArmaduraHightec,
-  ] = useState("");
-
-  const armaduraHightec = () => {
-    if (clickAlexiaArmaduraHightec === 1) {
-      setModificadorForcaAlexia((statusForca) => statusForca - 2);
-      setModificadorDestrezaAlexia((statusDestreza) => statusDestreza - 2);
-      setModificadorInteligenciaAlexia(
-        (statusInteligencia) => statusInteligencia - 2
-      );
-      setModificadorConstituicaoAlexia(
-        (statusConstituicao) => statusConstituicao - 2
-      );
-      setModificadorSabedoriaAlexia((statusSabedoria) => statusSabedoria - 2);
-      setNumberAlexiaCA((AlexiaCA) => AlexiaCA - 2);
-      setNumberAlexiaAtaque((AlexiaAtaque) => AlexiaAtaque - 2);
-      setButtonBorderColorAlexiaArmaduraHightec("");
-      setClickAlexiaArmaduraHightec(0);
-    } else {
-      setClickAlexiaArmaduraHightec(clickAlexiaArmaduraHightec + 1);
-      setModificadorForcaAlexia((statusForca) => statusForca + 2);
-      setModificadorDestrezaAlexia((statusDestreza) => statusDestreza + 2);
-      setModificadorInteligenciaAlexia(
-        (statusInteligencia) => statusInteligencia + 2
-      );
-      setModificadorConstituicaoAlexia(
-        (statusConstituicao) => statusConstituicao + 2
-      );
-      setModificadorSabedoriaAlexia((statusSabedoria) => statusSabedoria + 2);
-      setNumberAlexiaCA((AlexiaCA) => AlexiaCA + 2);
-      setNumberAlexiaAtaque((AlexiaAtaque) => AlexiaAtaque + 2);
-      setButtonBorderColorAlexiaArmaduraHightec("red");
-    }
-  };
-
-  const olhoCoruja = () => {
-    setLimitedNumberAlexiaMP((alexiaMP) => alexiaMP - 4);
-  };
-
-  const droneAuxiliar = () => {
-    setNumberAlexiaCarga((alexiaCG) =>
-      alexiaCG !== undefined ? alexiaCG - 1 : 0
-    );
-  };
-
-  const trincamentoExistente = () => {
-    setLimitedNumberAlexiaMP((alexiaMP) => alexiaMP - 6);
-  };
-
-  const corvosFabulusos = () => {
-    setLimitedNumberAlexiaMP((alexiaMP) => alexiaMP - 5);
-  };
-
-  const repulsãoEletrica = () => {
-    setNumberAlexiaCarga((alexiaCG) =>
-      alexiaCG !== undefined ? alexiaCG - 2 : 0
-    );
-  };
-
-  const adagasEletrica = () => {
-    setNumberAlexiaCarga((alexiaCG) =>
-      alexiaCG !== undefined ? alexiaCG - 3 : 0
-    );
-  };
-
-  const marcaSangue = () => {
-    setLimitedNumberAlexiaMP((AlexiaMP) => AlexiaMP - 4);
-  };
-
-  const defesaHightec = () => {
-    const damage = prompt("Quanto de dano você levou?");
-
-    if (damage !== null) {
-      const numeroDamage = parseFloat(damage);
-
-      if (!isNaN(numeroDamage)) {
-        const resistance = Math.floor(Math.random() * 6) + 1;
-
-        const result = numeroDamage - resistance;
-
-        const damageResult = numberAlexiaHP - result;
-
-        setLimitedNumberAlexiaHP(damageResult);
-
-        alert(
-          `O dano que Alexia levou foi ${numeroDamage}, mas a resistencia da armadura hightec de Alexia reduziu ${resistance} de dano que ela tomou, sendo assim o dano que Alexia levou foi reduzido para ${result}.`
-        );
-      } else {
-        alert("Por favor, insira um número válido.");
-      }
-    } else {
-      alert("Operação cancelada.");
-    }
-  };
-
-  const [clickUltAlexia, setClickUltAlexia] = useState(0);
-  const [buttonBorderColorUltAlexia, setButtonBorderColorUltAlexia] =
-    useState("");
-
-  const anjoAndMissil = () => {
-    if (clickUltAlexia === 4) {
-      alert("Ultimente do Alexia carregada!");
-      setClickUltAlexia(5);
-      setButtonBorderColorUltAlexia("blue");
-    } else if (clickUltAlexia < 4) {
-      setClickUltAlexia(clickUltAlexia + 1);
-      setButtonBorderColorUltAlexia("");
-    } else if (clickUltAlexia === 5) {
-      setClickUltAlexia(0);
-      setButtonBorderColorUltAlexia("");
-    }
-  };
 
   return (
     <div className="grid grid-cols-10 px-10 mt-20 items-end gap-1">
@@ -331,8 +158,20 @@ export default function CharacterBattleAlexia() {
         </Dialog>
       </div>
       <div className="flex h-24">
-        <SelectArmorButtonAlexia />
-        <SelectItemButtonAlexia />
+        <GearDialog
+          items={fighter.armors}
+          index={fighter.armorIndex}
+          onSelect={fighter.setArmorIndex}
+          title="Escolha a sua Armadura de Combate"
+          variant="classic"
+        />
+        <GearDialog
+          items={fighter.weapons}
+          index={fighter.weaponIndex}
+          onSelect={fighter.setWeaponIndex}
+          title="Escolha a sua Arma de Combate"
+          variant="classic"
+        />
       </div>
       <div className="col-span-6">
         <div className="pb-12 text-center">

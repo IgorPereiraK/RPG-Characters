@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home.tsx'
-import Battle from './pages/Battle.tsx'
+
+import Home from './pages/Home.tsx';
+import Battle from './pages/Battle.tsx';
+import CharacterInfo from './pages/CharacterInfo';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 
 const router = createBrowserRouter([
   {
@@ -19,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: "/battleSimulator",
         element: <Battle />
+      },
+      {
+        path: "/battleSimulatorRPG",
+        element: <Battle />
+      },
+      {
+        path: "/characterInfo",
+        element: <CharacterInfo />
       }
     ]
   }

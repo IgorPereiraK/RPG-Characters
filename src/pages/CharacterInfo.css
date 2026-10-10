@@ -1,0 +1,375 @@
+/* CharacterInfo.css - Estilo inspirado no site oficial de Baldur's Gate 3 */
+
+.character-info-bg {
+  background: 
+    radial-gradient(ellipse at center, rgba(20, 15, 30, 0.9) 0%, rgba(10, 8, 15, 0.95) 100%),
+    url('/image/background-12.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: 'Cinzel', serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Atmosfera mágica */
+.atmosphere-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(255, 105, 180, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 0%, rgba(75, 0, 130, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+  animation: atmosphereDrift 30s ease-in-out infinite;
+}
+
+@keyframes atmosphereDrift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -10px); }
+  50% { transform: translate(-10px, 10px); }
+  75% { transform: translate(5px, 5px); }
+}
+
+/* Partículas mágicas */
+.magic-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.magic-particles::before,
+.magic-particles::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #c9b87c;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #c9b87c;
+  animation: float 6s ease-in-out infinite;
+}
+
+.magic-particles::before {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+.magic-particles::after {
+  top: 60%;
+  right: 10%;
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+.character-info-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 4rem;
+  color: #c9b87c;
+  text-shadow: 
+    4px 4px 0px #000,
+    8px 8px 20px rgba(0, 0, 0, 0.8);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #a78b6b;
+  text-shadow: 2px 2px 4px #000;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+/* Efeito de glow no título hero */
+.hero-title::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  background: radial-gradient(circle, rgba(201, 184, 124, 0.4) 0%, transparent 70%);
+  z-index: -1;
+  filter: blur(15px);
+  animation: heroGlow 4s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* Grid de Personagens */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* Card de Personagem */
+.character-card {
+  background: 
+    linear-gradient(135deg, rgba(30, 25, 40, 0.95) 0%, rgba(20, 15, 30, 0.95) 100%),
+    url('/image/shadow-5.png');
+  background-size: cover;
+  border: 3px solid #c9b87c;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.character-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(201, 184, 124, 0.3);
+  border-color: #8b6f47;
+}
+
+/* Borda animada */
+.character-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #c9b87c, #8b6f47, #c9b87c);
+  background-size: 400% 400%;
+  z-index: -1;
+  border-radius: 18px;
+  animation: borderFlow 3s ease-in-out infinite;
+}
+
+@keyframes borderFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Imagem do personagem */
+.character-image-container {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.character-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid #c9b87c;
+  box-shadow: 0 0 20px rgba(201, 184, 124, 0.5);
+  transition: all 0.3s ease;
+  object-fit: cover;
+}
+
+.character-card:hover .character-image {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(201, 184, 124, 0.8);
+}
+
+/* Informações do personagem */
+.character-info {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.character-name {
+  font-size: 2rem;
+  color: #c9b87c;
+  text-shadow: 2px 2px 4px #000;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.character-class {
+  font-size: 1.2rem;
+  color: #8b6f47;
+  text-shadow: 1px 1px 2px #000;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.character-description {
+  font-size: 0.95rem;
+  color: #d4c5a8;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Botão de ação */
+.character-btn {
+  background: transparent;
+  color: #c9b87c;
+  border: 2px solid #c9b87c;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.character-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.character-btn:hover {
+  background: #c9b87c;
+  color: #2c1a09;
+  box-shadow: 0 0 15px rgba(201, 184, 124, 0.5);
+  transform: translateY(-2px);
+}
+
+.character-btn:hover::before {
+  left: 100%;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 1024px) {
+  .character-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    letter-spacing: 4px;
+  }
+  
+  .character-card {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .character-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    letter-spacing: 3px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .character-card {
+    min-height: 300px;
+    padding: 20px;
+  }
+  
+  .character-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .character-info-container {
+    padding: 20px 16px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  
+  .character-card {
+    min-height: 280px;
+    padding: 16px;
+  }
+  
+  .character-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .character-description {
+    font-size: 0.9rem;
+  }
+}
+
+/* Efeitos especiais para cada personagem */
+.vlad-card {
+  border-color: #e53935;
+}
+
+.vlad-card::before {
+  background: linear-gradient(45deg, #e53935, #b71c1c, #e53935);
+}
+
+.alexia-card {
+  border-color: #1e88e5;
+}
+
+.alexia-card::before {
+  background: linear-gradient(45deg, #1e88e5, #0d47a1, #1e88e5);
+}
+
+.riven-card {
+  border-color: #43a047;
+}
+
+.riven-card::before {
+  background: linear-gradient(45deg, #43a047, #1b5e20, #43a047);
+}

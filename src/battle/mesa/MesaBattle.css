@@ -1,0 +1,842 @@
+.mesa-bg {
+  --serif: "Cinzel", Georgia, serif;
+  --text: "Alegreya", Georgia, serif;
+  --sans: "Alegreya Sans", system-ui, sans-serif;
+  --steel: linear-gradient(145deg, #8a8a92 0%, #34343a 28%, #5b5b63 52%, #202026 78%, #47474e 100%);
+  --parch: linear-gradient(#f3e6c8, #dcc79a);
+  --btn: linear-gradient(#ffb25c, #e0701f 55%, #b5470f);
+  --btn-quiet: linear-gradient(#a8302f, #5e0f10);
+  --glow: #9b1518;
+  --accent: #ffb25c;
+  --ink: #2a0f04;
+  --muted: #c9a98a;
+  --line: #3a1a14;
+  min-height: 100vh;
+  color: #eadfc8;
+  font-family: var(--sans);
+  padding: 18px;
+  background:
+    radial-gradient(900px 600px at 50% 40%, #8e1218 0%, #3a070b 46%, #120203 100%);
+}
+
+.mesa-alexia {
+  --btn: linear-gradient(#67e8f9, #2563eb 48%, #db2777);
+  --btn-quiet: linear-gradient(#1d4ed8, #701a75);
+  --glow: #22d3ee;
+  --accent: #f472b6;
+  --ink: #041018;
+  --muted: #9bd4ff;
+  --line: #16324d;
+  background:
+    radial-gradient(900px 620px at 50% 38%, #12315c 0%, #071428 48%, #04060f 100%);
+}
+
+.mesa-riven {
+  --btn: linear-gradient(#d9f99d, #22c55e 52%, #14532d);
+  --btn-quiet: linear-gradient(#166534, #052e16);
+  --glow: #4ade80;
+  --accent: #bef264;
+  --ink: #10210c;
+  --muted: #b7e0b2;
+  --line: #1a3d24;
+  background:
+    radial-gradient(900px 620px at 50% 38%, #166534 0%, #052e16 48%, #03150c 100%);
+}
+
+.mesa-bg * {
+  box-sizing: border-box;
+}
+
+.mesa-stage {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) minmax(0, 1fr) minmax(260px, 340px);
+  grid-template-rows: auto auto auto;
+  gap: 18px 22px;
+}
+
+.mesa-metal {
+  background: var(--steel);
+  padding: 7px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px #000, 0 12px 30px #000a, inset 0 0 0 1px #ffffff40;
+}
+
+.mesa-inset {
+  background: linear-gradient(#17090a, #0d0505);
+  border-radius: 2px;
+  box-shadow: inset 0 0 18px #000, inset 0 0 0 1px #000;
+  padding: 14px;
+}
+
+.mesa-plaque {
+  font-family: var(--serif);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: #f0e2c2;
+  text-shadow: 0 2px 0 #000, 0 0 12px var(--glow);
+}
+
+.mesa-tab {
+  display: inline-block;
+  margin: 0 0 -6px 34px;
+  position: relative;
+  z-index: 1;
+  padding: 6px 22px 8px;
+  font-size: 0.95rem;
+  clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+}
+
+.mesa-btn {
+  border: 2px solid #4a1d08;
+  border-radius: 3px;
+  padding: 9px 16px;
+  font-family: var(--serif);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  background: var(--btn);
+  cursor: pointer;
+  text-shadow: 0 1px 0 #ffd9a8;
+  box-shadow: inset 0 1px 0 #ffe0b8, 0 3px 0 #2a0f04, 0 6px 10px #0009;
+  transition: transform 0.08s, filter 0.15s;
+}
+
+.mesa-btn:hover {
+  filter: brightness(1.12);
+}
+
+.mesa-btn:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 0 #ffe0b8, 0 1px 0 #2a0f04;
+}
+
+.mesa-btn.red {
+  background: var(--btn-quiet);
+  color: #f3d7c0;
+  text-shadow: 0 1px 0 #000;
+  border-color: #1a0505;
+}
+
+.mesa-top {
+  grid-column: 1 / -1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 64px;
+}
+
+.mesa-rounds {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.mesa-tools {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.mesa-tools .mesa-btn {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.mesa-top h1 {
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  padding: 10px 28px;
+  margin: 0;
+}
+
+.mesa-left,
+.mesa-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.mesa-slots {
+  display: flex;
+  gap: 14px;
+}
+
+.mesa-gear {
+  position: relative;
+  flex: 1 1 0;
+  height: 156px;
+  min-width: 0;
+  padding: 0;
+  border-radius: 3px;
+  background: #121216;
+  border: 2px solid #000;
+  box-shadow: inset 0 0 0 1px #ffffff30, inset 0 0 14px #0009;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.mesa-gear img {
+  position: absolute;
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  max-width: calc(100% - 16px);
+  max-height: calc(100% - 16px);
+  object-fit: contain;
+  object-position: center;
+}
+
+.mesa-gear:hover {
+  box-shadow: 0 0 0 2px var(--accent), 0 0 14px var(--glow), inset 0 0 14px #0009;
+}
+
+.mesa-bg .slot {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  padding: 0;
+  border-radius: 3px;
+  background: #121216;
+  border: 2px solid #000;
+  box-shadow: inset 0 0 0 1px #ffffff30, inset 0 0 14px #0009;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+
+.mesa-bg .slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1px;
+}
+
+.mesa-bg .slot:hover,
+.mesa-bg .slot.sel {
+  box-shadow: 0 0 0 2px var(--accent), 0 0 14px var(--glow), inset 0 0 14px #0009;
+}
+
+.mesa-skill-group + .mesa-skill-group {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.mesa-skill-label {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.mesa-charge {
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 700 0.7rem var(--sans);
+  background: #0b1730;
+  color: #6fa0ff;
+  border: 1px solid #000;
+  padding: 0 7px;
+  white-space: nowrap;
+}
+
+.mesa-abil {
+  display: grid;
+  grid-template-columns: repeat(4, 64px);
+  gap: 16px 10px;
+  padding-bottom: 10px;
+}
+
+.mesa-parch {
+  background: var(--parch);
+  color: #2b1c0e;
+  font-family: var(--text);
+  padding: 14px 16px 16px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 30px #8a6a3055, 0 0 0 2px #000;
+  min-height: 150px;
+}
+
+.mesa-parch h3 {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  border-bottom: 2px double #8a6a30;
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+
+.mesa-parch p {
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.mesa-parch .meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font: 700 0.85rem var(--sans);
+  color: #1d4a9a;
+}
+
+.mesa-use {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.mesa-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mesa-arch-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  width: min(100%, 420px);
+}
+
+.mesa-arch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4.1;
+  border-radius: 200px 200px 8px 8px;
+  border: 3px solid #000;
+  background: radial-gradient(var(--accent), var(--glow));
+  box-shadow: 0 0 0 7px #1a0c08, 0 0 0 9px #8a8a92, 0 0 70px var(--glow), inset 0 0 60px #000;
+  overflow: hidden;
+}
+
+.mesa-arch img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.mesa-arch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(transparent 55%, #000b);
+  pointer-events: none;
+}
+
+.mesa-name {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  margin: 8px 0 0;
+}
+
+.mesa-sub {
+  color: var(--muted);
+  margin-top: -6px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.mesa-dead .mesa-arch {
+  filter: grayscale(1) brightness(0.55);
+}
+
+.mesa-combat {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mesa-shield {
+  width: 92px;
+  height: 108px;
+  background: url("/image/escudo-ca-battle.png") center / contain no-repeat;
+  display: grid;
+  place-items: center;
+  color: #14161c;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.mesa-shield small,
+.mesa-atk small,
+.mesa-carga small {
+  display: block;
+  font: 700 0.75rem var(--sans);
+}
+
+.mesa-shield b {
+  font: 800 2rem/1 var(--serif);
+}
+
+.mesa-atk,
+.mesa-carga {
+  text-align: center;
+}
+
+.mesa-atk small,
+.mesa-carga small {
+  color: var(--muted);
+}
+
+.mesa-atk b,
+.mesa-carga b {
+  font: 800 2.2rem var(--serif);
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--glow);
+}
+
+.mesa-attrs {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mesa-attrs td,
+.mesa-attrs th {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 1rem;
+}
+
+.mesa-attrs th {
+  font: 800 0.8rem var(--serif);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-align: left;
+}
+
+.mesa-attrs td.v,
+.mesa-attrs th.v {
+  text-align: center;
+}
+
+.mesa-attrs td.m {
+  text-align: right;
+  font: 800 1.15rem var(--serif);
+}
+
+.mesa-pos {
+  color: var(--accent);
+}
+
+.mesa-neg {
+  color: #d9776c;
+}
+
+.mesa-prof {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.mesa-prof button {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  width: 100%;
+  font-family: var(--serif);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.mesa-bottom {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mesa-vit {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.mesa-bar {
+  position: relative;
+  height: 36px;
+  border: 2px solid #000;
+  border-radius: 3px;
+  background: #0b0404;
+  box-shadow: inset 0 0 10px #000, 0 0 0 2px #5b5b63;
+  overflow: hidden;
+}
+
+.mesa-bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mesa-bar.hp i {
+  background: linear-gradient(#e0453f, #8d1111 60%, #5e0808);
+}
+
+.mesa-bar.mp i {
+  background: linear-gradient(#5f93ff, #2a52b8 60%, #18307a);
+}
+
+.mesa-bar b {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px;
+  font: 800 1rem var(--serif);
+  text-shadow: 0 2px 3px #000;
+  color: #fff;
+}
+
+.mesa-ctrls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mesa-ctl {
+  display: flex;
+  border: 2px solid #000;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mesa-ctl input {
+  width: 64px;
+  background: #0b0404;
+  color: #eadfc8;
+  border: 0;
+  text-align: center;
+  font: 800 1rem var(--serif);
+  min-height: 44px;
+}
+
+.mesa-ctl input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.mesa-ctl .mesa-btn {
+  border: 0;
+  border-radius: 0;
+  padding: 8px 14px;
+  box-shadow: none;
+  min-height: 44px;
+}
+
+.mesa-picker {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mesa-pick {
+  width: 70px;
+  height: 70px;
+  border-radius: 3px;
+  border: 2px solid #000;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px #fff3;
+  background: #1a0a0a;
+}
+
+.mesa-pick img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mesa-pick.sel {
+  box-shadow: 0 0 0 3px var(--accent), 0 0 16px var(--glow);
+}
+
+.mesa-pick:not(.sel) {
+  filter: saturate(0.5) brightness(0.7);
+}
+
+.mesa-theme {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mesa-theme-label {
+  font-family: var(--serif);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.mesa-theme-btn {
+  border: 2px solid #4a1d08;
+  background: #2a120c;
+  color: #eadfc8;
+  font-family: var(--serif);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 8px 12px;
+  cursor: pointer;
+  min-height: 40px;
+}
+
+.mesa-theme-btn.is-on {
+  background: var(--btn);
+  color: var(--ink);
+}
+
+@media (max-width: 1200px) {
+  .mesa-top {
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .mesa-tools {
+    position: static;
+    transform: none;
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 1050px) {
+  .mesa-bg {
+    padding: 12px;
+  }
+
+  .mesa-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .mesa-stage,
+  .mesa-top,
+  .mesa-rounds,
+  .mesa-tools,
+  .mesa-left,
+  .mesa-right {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .mesa-top {
+    order: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .mesa-rounds {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .mesa-top h1 {
+    padding: 8px 14px;
+    font-size: 1.05rem;
+  }
+
+  .mesa-tools {
+    position: static;
+    transform: none;
+    align-self: flex-end;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+  .mesa-center { order: 1; }
+  .mesa-left { order: 2; }
+  .mesa-right { order: 3; }
+  .mesa-bottom { order: 4; }
+
+  .mesa-arch-btn {
+    width: min(72vw, 280px);
+  }
+
+  .mesa-vit {
+    grid-template-columns: 1fr;
+  }
+
+  .mesa-left,
+  .mesa-right {
+    width: 100%;
+  }
+
+  .mesa-abil {
+    grid-template-columns: repeat(auto-fill, 64px);
+    max-height: none;
+  }
+
+  .mesa-top .mesa-btn,
+  .mesa-use,
+  .mesa-pick,
+  .mesa-bg .slot {
+    min-height: 44px;
+  }
+
+  .mesa-pick,
+  .mesa-bg .slot {
+    min-width: 64px;
+  }
+}
+
+@media (min-width: 1051px) {
+  .mesa-parch {
+    display: none;
+  }
+}
+
+.mesa-dialog {
+  width: min(44rem, calc(100vw - 1.5rem));
+  max-width: min(44rem, calc(100vw - 1.5rem)) !important;
+  max-height: 85vh;
+  overflow: auto;
+  background: linear-gradient(#f3e6c8, #dcc79a) !important;
+  color: #2b1c0e !important;
+  border: 8px solid #4e4e56 !important;
+  box-shadow: 0 0 0 1px #000, inset 0 0 0 2px #ffffff55, 0 18px 40px #000c !important;
+  font-family: "Alegreya", Georgia, serif;
+}
+
+.mesa-dialog h2,
+.mesa-dialog h3 {
+  font-family: "Cinzel", Georgia, serif;
+  color: #2b1c0e;
+}
+
+.mesa-dialog > button {
+  color: #2b1c0e;
+  opacity: 1;
+}
+
+.mesa-dialog .text-gray-baldurText,
+.mesa-dialog .text-gray-100,
+.mesa-dialog p {
+  color: #2b1c0e !important;
+}
+
+.mesa-dialog tr,
+.mesa-dialog th,
+.mesa-dialog td {
+  background: transparent !important;
+  color: #2b1c0e !important;
+  border-color: #8a6a30 !important;
+}
+
+.mesa-dialog tbody tr:nth-child(even),
+.mesa-dialog tbody tr:nth-child(even) td {
+  background: #e7d7b0 !important;
+}
+
+.mesa-gear-pick {
+  height: 180px;
+  padding: 8px;
+  background: #121216;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.mesa-gear-pick.is-on {
+  border-color: #e2b080;
+  box-shadow: 0 0 0 2px #e2b080;
+}
+
+.mesa-gear-pick img,
+.mesa-gear-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mesa-gear-preview {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 2px solid #8a6a30;
+}
+
+.mesa-gear-preview img {
+  width: 120px;
+  height: 160px;
+  flex: none;
+  background: #121216;
+}
+
+.mesa-gear-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mesa-tip {
+  z-index: 60;
+  max-width: 22rem;
+  background: linear-gradient(#f3e6c8, #dcc79a) !important;
+  color: #2b1c0e !important;
+  border: 3px solid #4e4e56 !important;
+  box-shadow: 0 0 0 1px #000, 0 12px 28px #000a !important;
+  padding: 12px 14px !important;
+  font-family: "Alegreya", Georgia, serif;
+}
+
+.mesa-tip-name {
+  margin: 0 0 8px;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.mesa-tip-body {
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.mesa-tip-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 10px;
+  font-family: "Alegreya Sans", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1d4a9a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesa-bg * {
+    transition: none !important;
+  }
+}

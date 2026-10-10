@@ -6,10 +6,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { useEffect, useState } from "react";
 import { rivenStatus } from "../data/characterStatus";
-import SelectArmorButtonRiven from "../selectItensCharacters/selectArmorButtonRiven";
-import SelectItemButtonRiven from "../selectItensCharacters/selectItemButtonRiven";
+import { useBattleSession } from "../../battle/BattleSession";
+import GearDialog from "../../battle/GearDialog";
 import { skillsRiven } from "../data/skillsCharacters";
 import SkillBattle from "../skillBattle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatarSmall";
@@ -18,274 +17,59 @@ import { anotacoesRiven } from "../data/textoCharacters";
 import ButtonProficienciaRiven from "../buttons/buttonProficienciaRiven";
 import { secondSkillsRiven } from "../data/secondSkillCharacters";
 
-interface CharacterBattleRivenProps {
-  skillCharge: number;
-}
-
-export default function CharacterBattleRiven({
-  skillCharge,
-}: CharacterBattleRivenProps) {
-  const [numberRivenHP, setNumberRivenHP] = useState<number>(rivenStatus.hp);
-  const [numberRivenMP, setNumberRivenMP] = useState<number>(rivenStatus.mp);
-  const [numberRivenCA, setNumberRivenCA] = useState<number>(rivenStatus.ca);
-  const [numberRivenAtaque] = useState<number>(
-    rivenStatus.constituicaoModificador
-  );
-  const [incrementRiven, setIncrementRiven] = useState<number>(0);
-  const [subtractRiven, setSubtractRiven] = useState<number>(0);
-  const [incrementManaRiven, setIncrementManaRiven] = useState<number>(0);
+export default function CharacterBattleRiven() {
+  const fighter = useBattleSession().riven;
+  const numberRivenHP = fighter.hp;
+  const numberRivenMP = fighter.mp;
+  const numberRivenCA = fighter.ca;
+  const numberRivenAtaque = fighter.ataque;
+  const incrementRiven = fighter.healInput;
+  const subtractRiven = fighter.damageInput;
+  const incrementManaRiven = fighter.manaInput;
+  const clickRivenPassiva = fighter.passiva;
+  const buttonBorderColorRivenPassiva = fighter.passivaBorder;
+  const buttonBorderColorRivenBloodArmor = fighter.bloodArmorBorder;
+  const clickUltRiven = fighter.ult;
+  const buttonBorderColorUltRiven = fighter.ultBorder;
+  const clickAntiAtiradorTalento = fighter.antiAtirador;
 
   const healthPercentageRiven = (numberRivenHP / rivenStatus.hp) * 100;
   const manaPercentageRiven = (numberRivenMP / rivenStatus.mp) * 100;
 
-  const handleChangeIncrementRiven = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setIncrementRiven(value);
+  const readNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    return Number.isNaN(value) ? 0 : value;
   };
 
-  const handleChangeSubtractRiven = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setSubtractRiven(value);
+  const handleChangeIncrementRiven = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setHealInput(readNumber(event));
   };
-
-  const handleChangeIncrementManaRiven = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setIncrementManaRiven(value);
+  const handleChangeSubtractRiven = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setDamageInput(readNumber(event));
   };
-
-  const handleSubtractRiven = () => {
-    const newValue = numberRivenHP - subtractRiven;
-    setLimitedNumberRivenHP(newValue);
+  const handleChangeIncrementManaRiven = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setManaInput(readNumber(event));
   };
+  const handleSubtractRiven = fighter.applyDamage;
+  const handleIncrementRiven = fighter.applyHeal;
+  const handleIncrementManaRiven = fighter.applyMana;
+  const fotossintese = () => fighter.useSkill("Fotossíntese");
+  const onipresenca = () => fighter.useSkill("Onipresença");
+  const focoDeForcaRiven = () => fighter.useSkill("Foco de Força");
+  const bloodArmorRiven = () => fighter.useSkill("Blood Armor R");
+  const transfusaoSanguineaRiven = () => fighter.useSkill("Transfusão Sanguínea");
+  const agulhaSangueRiven = () => fighter.useSkill("Agulhas de Sangue");
+  const musculoTonificarAmpliar = () => fighter.useSkill("Músculo Tonificar ou Ampliar");
+  const erupcaoPlasmatica = () => fighter.useSkill("Erupção Plasmática");
+  const trovaoContracao = () => fighter.useSkill("Trovão de Contração");
+  const confusao = () => fighter.useSkill("Confusão");
+  const psybean = () => fighter.useSkill("Psy Bean");
+  const marcaSangue = () => fighter.useSkill("Marca de Sangue");
+  const demonBackAndCaesInfernais = () => fighter.useSkill("Demon Back");
+  const regeneracao = () => fighter.useRegeneracao();
+  const gladiadorImortal = () => fighter.useGladiador();
+  const antiAtiradorTalento = fighter.useAntiAtirador;
 
-  const handleIncrementRiven = () => {
-    const newValue = numberRivenHP + incrementRiven;
-    setLimitedNumberRivenHP(newValue);
-  };
-
-  const handleIncrementManaRiven = () => {
-    const newValue = numberRivenMP + incrementManaRiven;
-    setLimitedNumberRivenMP(newValue);
-  };
-
-  const setLimitedNumberRivenHP = (
-    newHP: number | ((prevHP: number) => number)
-  ) => {
-    if (typeof newHP === "function") {
-      setNumberRivenHP((prevHP: number) => {
-        const result = newHP(prevHP);
-        return Math.max(0, Math.min(result, rivenStatus.hp));
-      });
-    } else {
-      setNumberRivenHP(Math.max(0, Math.min(newHP, rivenStatus.hp)));
-    }
-  };
-
-  const setLimitedNumberRivenMP = (
-    newMP: number | ((prevMP: number) => number)
-  ) => {
-    if (typeof newMP === "function") {
-      setNumberRivenMP((prevMP: number) => {
-        const result = newMP(prevMP);
-        return Math.max(0, Math.min(result, rivenStatus.mp));
-      });
-    } else {
-      setNumberRivenMP(Math.max(0, Math.min(newMP, rivenStatus.mp)));
-    }
-  };
-
-  const [clickRivenPassiva, setClickRivenPassiva] = useState(0);
-  const [buttonBorderColorRivenPassiva, setButtonBorderColorRivenPassiva] =
-    useState("");
-
-  const fotossintese = () => {
-    const heal = Math.floor(Math.random() * 2) + 1;
-    const healing = numberRivenHP + heal;
-    setLimitedNumberRivenHP(healing);
-
-    alert(
-      `A cura gerada de 1d2 por causa da habilidade Fotossíntese foi: ${heal} de vida`
-    );
-  };
-
-  const onipresenca = () => {
-    if (clickRivenPassiva === 2) {
-      alert("Passiva da Riven pronta!");
-      setClickRivenPassiva(3);
-      setButtonBorderColorRivenPassiva("green");
-    } else if (clickRivenPassiva < 2) {
-      setClickRivenPassiva(clickRivenPassiva + 1);
-      setButtonBorderColorRivenPassiva("");
-    } else if (clickRivenPassiva === 3) {
-      setClickRivenPassiva(0);
-      setButtonBorderColorRivenPassiva("");
-    }
-  };
-
-  const focoDeForcaRiven = () => {
-    const damage = prompt("Quanto de dano mágico você levou?");
-
-    if (damage !== null) {
-      const numeroDamage = parseFloat(damage);
-
-      if (!isNaN(numeroDamage)) {
-        const resistance = Math.floor(Math.random() * 6) + 1;
-
-        const result = numeroDamage - resistance;
-
-        const damageResult = numberRivenHP - result;
-
-        setLimitedNumberRivenHP(damageResult);
-
-        alert(
-          `O dano que Riven levou foi ${numeroDamage}, mas a resistencia de Riven reduziu ${resistance} de dano que ela tomou, sendo assim o dano que Riven levou foi reduzido para ${result}.`
-        );
-      } else {
-        alert("Por favor, insira um número válido.");
-      }
-    } else {
-      alert("Operação cancelada.");
-    }
-  };
-
-  const [clickRivenBloodArmor, setClickRivenBloodArmor] = useState(0);
-  const [
-    buttonBorderColorRivenBloodArmor,
-    setButtonBorderColorRivenBloodArmor,
-  ] = useState("");
-
-  const bloodArmorRiven = () => {
-    if (clickRivenBloodArmor === 1) {
-      setNumberRivenCA((RivenCA) => RivenCA - 2);
-      setButtonBorderColorRivenBloodArmor("");
-      setClickRivenBloodArmor(0);
-    } else {
-      setClickRivenBloodArmor(clickRivenBloodArmor + 1);
-      setNumberRivenCA((RivenCA) => RivenCA + 2);
-      setButtonBorderColorRivenBloodArmor("green");
-    }
-  };
-
-  const [promptCount, setPromptCount] = useState(0);
-
-  const transfusaoSanguineaRiven = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 6);
-
-    setPromptCount((prevCount) => {
-      const nextCount = prevCount + 1;
-      if (nextCount === 3) {
-        return 0;
-      }
-      return nextCount;
-    });
-
-    const damage = prompt(
-      "Quanto de dano Riven causou com a habilidade Transfusão Sanguínea?"
-    );
-
-    if (damage !== null && !isNaN(parseFloat(damage))) {
-      let healedAmount;
-
-      if (promptCount >= 2) {
-        healedAmount = parseFloat(damage);
-        alert(
-          `Essa foi a terceira vez que Riven acertou a Transfusão Sanguínea, então Riven curou ${healedAmount} de vida`
-        );
-      } else {
-        healedAmount = Math.ceil(parseFloat(damage) / 2);
-        alert(`Riven curou ${healedAmount} de vida`);
-      }
-
-      setLimitedNumberRivenHP((prevHP) => prevHP + healedAmount);
-    } else {
-      alert("Por favor, insira um número válido.");
-    }
-  };
-
-  const agulhaSangueRiven = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 8);
-  };
-
-  const musculoTonificarAmpliar = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 4);
-  };
-
-  const erupcaoPlasmatica = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 7);
-  };
-
-  const trovaoContracao = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 6);
-  };
-
-  const confusao = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 5);
-  };
-
-  const psybean = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 5);
-  };
-
-  const marcaSangue = () => {
-    setLimitedNumberRivenMP((RivenMP) => RivenMP - 4);
-  };
-
-  const [clickUltRiven, setClickUltRiven] = useState(0);
-  const [buttonBorderColorUltRiven, setButtonBorderColorUltRiven] =
-    useState("");
-
-  const demonBackAndCaesInfernais = () => {
-    if (clickUltRiven === 4) {
-      alert("Ultimente do Riven carregada!");
-      setClickUltRiven(5);
-      setButtonBorderColorUltRiven("green");
-    } else if (clickUltRiven < 4) {
-      setClickUltRiven(clickUltRiven + 1);
-      setButtonBorderColorUltRiven("");
-    } else if (clickUltRiven === 5) {
-      setClickUltRiven(0);
-      setButtonBorderColorUltRiven("");
-    }
-  };
-
-  const regeneracao = () => {
-    const heal = Math.floor(Math.random() * 4) + 1;
-    const healing = numberRivenHP + heal;
-    setLimitedNumberRivenHP(healing);
-
-    alert(
-      `A cura gerada de 1d4 pela habilidade Regeneração foi: ${heal} de vida`
-    );
-  };
-
-  const gladiadorImortal = () => {
-    const heal = Math.floor(Math.random() * 6) + 1;
-    const healing = numberRivenHP + heal;
-    setLimitedNumberRivenHP(healing);
-
-    alert(
-      `A cura gerada de 1d6 pela habilidade Gladiador Imortal foi: ${heal} de vida`
-    );
-  };
-
-  useEffect(() => {
-    if (skillCharge >= 1) {
-      onipresenca();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skillCharge]);
-
-  const [clickAntiAtiradorTalento, setClickAntiAtiradorTalento] = useState(5);
-
-  const antiAtiradorTalento = () => {
-    setClickAntiAtiradorTalento((clickAAT) => clickAAT - 1);
-  };
 
   return (
     <div className="grid grid-cols-10 px-10 mt-20 items-end gap-1">
@@ -385,8 +169,20 @@ export default function CharacterBattleRiven({
         </Dialog>
       </div>
       <div className="flex h-24">
-        <SelectArmorButtonRiven />
-        <SelectItemButtonRiven />
+        <GearDialog
+          items={fighter.armors}
+          index={fighter.armorIndex}
+          onSelect={fighter.setArmorIndex}
+          title="Escolha a sua Armadura de Combate"
+          variant="classic"
+        />
+        <GearDialog
+          items={fighter.weapons}
+          index={fighter.weaponIndex}
+          onSelect={fighter.setWeaponIndex}
+          title="Escolha a sua Arma de Combate"
+          variant="classic"
+        />
       </div>
       <div className="col-span-6">
         <div className="pb-12 text-center">

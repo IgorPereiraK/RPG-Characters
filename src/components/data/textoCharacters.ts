@@ -32,6 +32,9 @@ export const anotacoesVlad: Texto[] = [
     {
         texto: 'Talentos Duelista: Gladiador Imortal: Você curar 1d6 por golpe acertado no adversário.'
     },
+    {
+        texto: 'Talento Versátil +1: 1d6 a mais em cada golpe, ou 1d6 de redução em cada golpe recebido.'
+    },
 ]
 
 export const anotacoesAlexia: Texto[] = [

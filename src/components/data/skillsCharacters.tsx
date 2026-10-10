@@ -90,6 +90,27 @@ export const skillsVlad: Skills[] = [
     ),
   },
   {
+    name: "Versátil",
+    image: "./image/versatil.svg",
+    magic: "Talento Versátil",
+    description: (
+      <div>
+        <p>
+          Versátil +1: em batalha,{" "}
+          <span className="text-yellow-300">1d6 a mais em cada golpe</span> ou{" "}
+          <span className="text-yellow-300">1d6 de redução em cada golpe recebido</span>.
+          Clique para escolher ataque, defesa ou desativar.
+        </p>
+      </div>
+    ),
+    type: (
+      <div>
+        <span className="inline-block w-3 h-3 bg-red-600 rounded-full mr-1"></span>
+        <span>Passiva</span>
+      </div>
+    ),
+  },
+  {
     name: "Blood Armor",
     image: "./image/armorV.png",
     magic: "Magia de Hemomancia",

@@ -23,4 +23,5 @@ export type Skills = {
   borderColorRivenUlt?: string | null;
   borderColorAlexiaArmaduraHightec?: string | null;
   borderColorVladTransformacao?: string | null;
+  borderColorVladVersatil?: string | null;
 };

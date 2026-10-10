@@ -10,324 +10,75 @@ import {
 import SkillBattle from "../skillBattle";
 import { skillsVlad } from "../data/skillsCharacters";
 import { vladStatus } from "../data/characterStatus";
-import SelectItemButton from "../selectItensCharacters/selectItemButton";
-import { useEffect, useState } from "react";
-import SelectArmorButton from "../selectItensCharacters/selectArmorButton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatarSmall";
 import { characterInfo } from "../data/characterInfo";
 import { anotacoesVlad } from "../data/textoCharacters";
 import ButtonProficienciaVlad from "../buttons/buttonProficienciaVlad";
 import { secondSkillsVlad } from "../data/secondSkillCharacters";
+import { useBattleSession } from "../../battle/BattleSession";
+import GearDialog from "../../battle/GearDialog";
 
-interface CharacterBattleVladProps {
-  skillCharge: number;
-}
-
-export default function CharacterBattleVlad({
-  skillCharge,
-}: CharacterBattleVladProps) {
-  const [numberVladHP, setNumberVladHP] = useState<number>(vladStatus.hp);
-  const [numberVladMP, setNumberVladMP] = useState<number>(vladStatus.mp);
-  const [numberVladCA, setNumberVladCA] = useState<number>(vladStatus.ca);
-  const [incrementVlad, setIncrementVlad] = useState<number>(0);
-  const [subtractVlad, setSubtractVlad] = useState<number>(0);
-  const [incrementManaVlad, setIncrementManaVlad] = useState<number>(0);
-
-  const [modificadorForcaVlad, setModificadorForcaVlad] = useState<number>(
-    vladStatus.forcaModificador
-  );
-  const [modificadorDestrezaVlad, setModificadorDestrezaVlad] =
-    useState<number>(vladStatus.destrezaModificador);
-  const [modificadorInteligenciaVlad, setModificadorInteligenciaVlad] =
-    useState<number>(vladStatus.inteligenciaModificador);
-  const [modificadorConstituicaoVlad, setModificadorConstituicaoVlad] =
-    useState<number>(vladStatus.constituicaoModificador);
-  const [numberVladAtaque, setNumberVladAtaque] = useState<number>(
-    vladStatus.constituicaoModificador
-  );
+export default function CharacterBattleVlad() {
+  const fighter = useBattleSession().vlad;
+  const numberVladHP = fighter.hp;
+  const numberVladMP = fighter.mp;
+  const numberVladCA = fighter.ca;
+  const incrementVlad = fighter.healInput;
+  const subtractVlad = fighter.damageInput;
+  const incrementManaVlad = fighter.manaInput;
+  const modificadorForcaVlad = fighter.forcaMod;
+  const modificadorDestrezaVlad = fighter.destrezaMod;
+  const modificadorInteligenciaVlad = fighter.inteligenciaMod;
+  const modificadorConstituicaoVlad = fighter.constituicaoMod;
+  const numberVladAtaque = fighter.ataque;
 
   const healthPercentageVlad = (numberVladHP / vladStatus.hp) * 100;
   const manaPercentageVlad = (numberVladMP / vladStatus.mp) * 100;
 
-  const handleChangeIncrementVlad = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setIncrementVlad(value);
+  const clickVladPassiva = fighter.passiva;
+  const buttonBorderColorVladPassiva = fighter.passivaBorder;
+  const clickUltVlad = fighter.ult;
+  const buttonBorderColorUltVlad = fighter.ultBorder;
+  const buttonBorderColorVladBloodArmor = fighter.bloodArmorBorder;
+  const buttonBorderColorVladBloodShield = fighter.bloodShieldBorder;
+  const buttonBorderColorVladTransformacao = fighter.transformBorder;
+  const clickAntiAtiradorTalento = fighter.antiAtirador;
+
+  const readNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    return Number.isNaN(value) ? 0 : value;
   };
 
-  const handleChangeSubtractVlad = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setSubtractVlad(value);
+  const handleChangeIncrementVlad = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setHealInput(readNumber(event));
+  };
+  const handleChangeSubtractVlad = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setDamageInput(readNumber(event));
+  };
+  const handleChangeIncrementManaVlad = (event: React.ChangeEvent<HTMLInputElement>) => {
+    fighter.setManaInput(readNumber(event));
   };
 
-  const handleChangeIncrementManaVlad = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(event.target.value);
-    setIncrementManaVlad(value);
-  };
-
-  const handleSubtractVlad = () => {
-    const newValue = numberVladHP - subtractVlad;
-    setLimitedNumberVladHP(newValue);
-  };
-
-  const handleIncrementVlad = () => {
-    const newValue = numberVladHP + incrementVlad;
-    setLimitedNumberVladHP(newValue);
-  };
-
-  const handleIncrementManaVlad = () => {
-    const newValue = numberVladMP + incrementManaVlad;
-    setLimitedNumberVladMP(newValue);
-  };
-
-  const setLimitedNumberVladHP = (
-    newHP: number | ((prevHP: number) => number)
-  ) => {
-    if (typeof newHP === "function") {
-      setNumberVladHP((prevHP: number) => {
-        const result = newHP(prevHP);
-        return Math.max(0, Math.min(result, vladStatus.hp));
-      });
-    } else {
-      setNumberVladHP(Math.max(0, Math.min(newHP, vladStatus.hp)));
-    }
-  };
-
-  const setLimitedNumberVladMP = (
-    newMP: number | ((prevMP: number) => number)
-  ) => {
-    if (typeof newMP === "function") {
-      setNumberVladMP((prevMP: number) => {
-        const result = newMP(prevMP);
-        return Math.max(0, Math.min(result, vladStatus.mp));
-      });
-    } else {
-      setNumberVladMP(Math.max(0, Math.min(newMP, vladStatus.mp)));
-    }
-  };
-
-  const [clickVladPassiva, setClickVladPassiva] = useState(0);
-  const [buttonBorderColorVladPassiva, setButtonBorderColorVladPassiva] =
-    useState("");
-
-  const sangueDeFerro = () => {
-    if (clickVladPassiva === 2) {
-      alert("Passiva do Vlad pronta!");
-      setClickVladPassiva(3);
-      setButtonBorderColorVladPassiva("red");
-    } else if (clickVladPassiva < 2) {
-      setClickVladPassiva(clickVladPassiva + 1);
-      setButtonBorderColorVladPassiva("");
-    } else if (clickVladPassiva === 3) {
-      setClickVladPassiva(0);
-      setButtonBorderColorVladPassiva("");
-    }
-  };
-
-  useEffect(() => {
-    if (skillCharge >= 1) {
-      sangueDeFerro();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skillCharge]);
-
-  const focoDeForca = () => {
-    const damage = prompt("Quanto de dano físico você levou?");
-
-    if (damage !== null) {
-      const numeroDamage = parseFloat(damage);
-
-      if (!isNaN(numeroDamage)) {
-        const resistance = Math.floor(Math.random() * 6) + 1;
-
-        const result = numeroDamage - resistance;
-
-        const damageResult = numberVladHP - result;
-
-        setLimitedNumberVladHP(damageResult);
-
-        alert(
-          `O dano que Vlad levou foi ${numeroDamage}, mas a resistencia de Vlad reduziu ${resistance} de dano que ele tomou, sendo assim o dano que Vlad levou foi reduzido para ${result}.`
-        );
-      } else {
-        alert("Por favor, insira um número válido.");
-      }
-    } else {
-      alert("Operação cancelada.");
-    }
-  };
-
-  const regeneracao = () => {
-    const heal = Math.floor(Math.random() * 4) + 1;
-    const healing = numberVladHP + heal;
-    setLimitedNumberVladHP(healing);
-
-    alert(
-      `A cura gerada de 1d4 pela habilidade Regeneração foi: ${heal} de vida`
-    );
-  };
-
-  const gladiadorImortal = () => {
-    const heal = Math.floor(Math.random() * 6) + 1;
-    const healing = numberVladHP + heal;
-    setLimitedNumberVladHP(healing);
-
-    alert(
-      `A cura gerada de 1d6 pela habilidade Gladiador Imortal foi: ${heal} de vida`
-    );
-  };
-
-  const [clickVladBloodArmor, setClickVladBloodArmor] = useState(0);
-  const [buttonBorderColorVladBloodArmor, setButtonBorderColorVladBloodArmor] =
-    useState("");
-
-  const bloodArmor = () => {
-    if (clickVladBloodArmor === 1) {
-      setNumberVladCA((vladCA) => vladCA - 2);
-      setButtonBorderColorVladBloodArmor("");
-      setClickVladBloodArmor(0);
-    } else {
-      setClickVladBloodArmor(clickVladBloodArmor + 1);
-      setNumberVladCA((VladCA) => VladCA + 2);
-      setButtonBorderColorVladBloodArmor("red");
-    }
-  };
-
-  const [clickVladBloodShield, setClickVladBloodShield] = useState(0);
-  const [
-    buttonBorderColorVladBloodShield,
-    setButtonBorderColorVladBloodShield,
-  ] = useState("");
-
-  const bloodShield = () => {
-    if (clickVladBloodShield === 1) {
-      setNumberVladCA((vladCA) => vladCA - 2);
-      setButtonBorderColorVladBloodShield("");
-      setClickVladBloodShield(0);
-    } else {
-      setClickVladBloodShield(clickVladBloodShield + 1);
-      setNumberVladCA((VladCA) => VladCA + 2);
-      setButtonBorderColorVladBloodShield("red");
-    }
-  };
-
-  const [promptCount, setPromptCount] = useState(0);
-
-  const transfusaoSanguinea = () => {
-    setLimitedNumberVladMP((vladMP) => vladMP - 6);
-
-    setPromptCount((prevCount) => {
-      const nextCount = prevCount + 1;
-      if (nextCount === 3) {
-        return 0;
-      }
-      return nextCount;
-    });
-
-    const damage = prompt(
-      "Quanto de dano Vlad causou com a habilidade Transfusão Sanguínea?"
-    );
-
-    if (damage !== null && !isNaN(parseFloat(damage))) {
-      let healedAmount;
-
-      if (promptCount >= 2) {
-        healedAmount = parseFloat(damage);
-        alert(
-          `Essa foi a terceira vez que Vlad acertou a Transfusão Sanguínea, então Vlad curou ${healedAmount} de vida`
-        );
-      } else {
-        healedAmount = Math.ceil(parseFloat(damage) / 2);
-        alert(`Vlad curou ${healedAmount} de vida`);
-      }
-
-      setLimitedNumberVladHP((prevHP: number) => prevHP + healedAmount);
-    } else {
-      alert("Por favor, insira um número válido.");
-    }
-  };
-
-  const reflexoSanguineoVlad = () => {
-    setLimitedNumberVladMP((vladMP) => vladMP - 6);
-  };
-
-  const agulhaSangueVlad = () => {
-    setLimitedNumberVladMP((vladMP) => vladMP - 8);
-  };
-
-  const pinguinsVlad = () => {
-    setLimitedNumberVladMP((vladMP) => vladMP - 6);
-  };
-
-  const marcaSangue = () => {
-    setLimitedNumberVladMP((vladMP) => vladMP - 4);
-  };
-
-  const [clickVladTransformacao, setClickVladTransformacao] = useState(0);
-  const [
-    buttonBorderColorVladTransformacao,
-    setButtonBorderColorVladTransformacao,
-  ] = useState("");
-
-  const transformacaoVampirica = () => {
-    if (clickVladTransformacao === 1) {
-      setModificadorForcaVlad((statusForca) => statusForca - 4);
-      setModificadorDestrezaVlad((statusDestreza) => statusDestreza - 4);
-      setModificadorInteligenciaVlad(
-        (statusInteligencia) => statusInteligencia - 4
-      );
-      setModificadorConstituicaoVlad(
-        (statusConstituicao) => statusConstituicao - 4
-      );
-      setNumberVladCA((VladCA) => VladCA - 4);
-      setNumberVladAtaque((VladAtaque) => VladAtaque - 4);
-      setButtonBorderColorVladTransformacao("");
-      setClickVladTransformacao(0);
-    } else {
-      setClickVladTransformacao(clickVladTransformacao + 1);
-      setModificadorForcaVlad((statusForca) => statusForca + 4);
-      setModificadorDestrezaVlad((statusDestreza) => statusDestreza + 4);
-      setModificadorInteligenciaVlad(
-        (statusInteligencia) => statusInteligencia + 4
-      );
-      setModificadorConstituicaoVlad(
-        (statusConstituicao) => statusConstituicao + 4
-      );
-      setNumberVladCA((VladCA) => VladCA + 4);
-      setNumberVladAtaque((VladAtaque) => VladAtaque + 4);
-      setButtonBorderColorVladTransformacao("red");
-    }
-  };
-
-  const [clickUltVlad, setClickUltVlad] = useState(0);
-  const [buttonBorderColorUltVlad, setButtonBorderColorUltVlad] = useState("");
-
-  const caesInfernais = () => {
-    if (clickUltVlad === 4) {
-      alert("Ultimente do Vlad carregada!");
-      setClickUltVlad(5);
-      setButtonBorderColorUltVlad("red");
-    } else if (clickUltVlad < 4) {
-      setClickUltVlad(clickUltVlad + 1);
-      setButtonBorderColorUltVlad("");
-    } else if (clickUltVlad === 5) {
-      setClickUltVlad(0);
-      setButtonBorderColorUltVlad("");
-    }
-  };
-
-  const [clickAntiAtiradorTalento, setClickAntiAtiradorTalento] = useState(5);
-
-  const antiAtiradorTalento = () => {
-    if (clickAntiAtiradorTalento > 0) {
-      setClickAntiAtiradorTalento((clickAAT) => clickAAT - 1);
-    }
-  };
+  const handleSubtractVlad = fighter.applyDamage;
+  const handleIncrementVlad = fighter.applyHeal;
+  const handleIncrementManaVlad = fighter.applyMana;
+  const sangueDeFerro = () => fighter.useSkill("Sangue de Ferro");
+  const focoDeForca = () => fighter.useSkill("Foco de Força");
+  const regeneracao = () => fighter.useSkill("Regeneração");
+  const gladiadorImortal = () => fighter.useSkill("Gladiador Imortal");
+  const bloodArmor = () => fighter.useSkill("Blood Armor");
+  const bloodShield = () => fighter.useSkill("Blood Shield");
+  const transfusaoSanguinea = () => fighter.useSkill("Transfusão Sanguínea");
+  const reflexoSanguineoVlad = () => fighter.useSkill("Reflexo Sanquíneo");
+  const agulhaSangueVlad = () => fighter.useSkill("Agulhas de Sangue");
+  const pinguinsVlad = () => fighter.useSkill("Pinguins Imperiais");
+  const marcaSangue = () => fighter.useSkill("Marca de Sangue");
+  const transformacaoVampirica = () => fighter.useSkill("Transformação Vampírica");
+  const caesInfernais = () => fighter.useSkill("Cães Infernais");
+  const versatil = () => fighter.useSkill("Versátil");
+  const antiAtiradorTalento = fighter.useAntiAtirador;
+  const versatilLabel =
+    fighter.versatil === "ataque" ? "Ataque" : fighter.versatil === "defesa" ? "Defesa" : "Desativado";
 
   return (
     <div>
@@ -403,7 +154,7 @@ export default function CharacterBattleVlad({
                           {clickAntiAtiradorTalento}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 mb-4">
                         <button className="border-2 rounded-md border-gray-900">
                           <img
                             src="./image/duelistaVlad.png"
@@ -414,6 +165,25 @@ export default function CharacterBattleVlad({
                           {anotacoesVlad[9].texto}
                         </h3>
                       </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={versatil}
+                          className="border-2 rounded-md border-gray-900"
+                        >
+                          <img
+                            src="./image/versatil.svg"
+                            alt="Versátil"
+                            className="w-16 h-12"
+                          />
+                        </button>
+                        <h3 className="text-gray-baldurText">
+                          {anotacoesVlad[10].texto}
+                        </h3>
+                        <span className="text-gray-baldurText font-bold text-lg">
+                          {versatilLabel}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </DialogDescription>
@@ -422,8 +192,20 @@ export default function CharacterBattleVlad({
           </Dialog>
         </div>
         <div className="flex h-24">
-          <SelectArmorButton />
-          <SelectItemButton />
+          <GearDialog
+            items={fighter.armors}
+            index={fighter.armorIndex}
+            onSelect={fighter.setArmorIndex}
+            title="Escolha a sua Armadura de Combate"
+            variant="classic"
+          />
+          <GearDialog
+            items={fighter.weapons}
+            index={fighter.weaponIndex}
+            onSelect={fighter.setWeaponIndex}
+            title="Escolha a sua Arma de Combate"
+            variant="classic"
+          />
         </div>
         <div className="col-span-6">
           <div className="pb-12 text-center">
@@ -553,6 +335,9 @@ export default function CharacterBattleVlad({
                       case "Cães Infernais":
                         caesInfernais();
                         break;
+                      case "Versátil":
+                        versatil();
+                        break;
                       default:
                         console.log("Habilidade não encontrada!");
                     }
@@ -587,6 +372,9 @@ export default function CharacterBattleVlad({
                     skill.name === "Transformação Vampírica"
                       ? buttonBorderColorVladTransformacao
                       : null
+                  }
+                  borderColorVladVersatil={
+                    skill.name === "Versátil" ? fighter.versatilBorder : null
                   }
                 />
               ))}
