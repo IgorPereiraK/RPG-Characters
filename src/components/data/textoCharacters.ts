@@ -15,7 +15,7 @@ export const anotacoesVlad: Texto[] = [
         texto: 'Vampiro kill: 2;  Possuem a Marcar: 7;  Kill: 19;  Zumbi: 7'
     },
     {
-        texto: 'Algumas armas de Sangue: Facão: 1d8, quando acerta ganha 1 de CA a mais.Forca: 1d8, se acerta o inimigo fica com -1 em tudo. Foice: 2d8, Bastão doce: 1d8 de dano metade do dano se tornar em curar. Adaga persica: 3d7.'
+        texto: 'Algumas armas de Sangue: Facão: 1d8, quando acerta ganha 1 de CA a mais. Forca: 1d8, se acerta o inimigo fica com -1 em tudo. Foice: 2d8. Bastão doce: 1d8 de dano, metade do dano se torna cura. Adaga pérsica: 3d8 e causa sangramento de 1 a 2 de dano por turno. Arco longo: 2d10, arco de um elfo antigo que fez parte do grupo do Gimper.'
     },
     {
         texto: 'Ter farinha feita a mão e cocacola gelada.'
@@ -34,6 +34,12 @@ export const anotacoesVlad: Texto[] = [
     },
     {
         texto: 'Talento Versátil +1: 1d6 a mais em cada golpe, ou 1d6 de redução em cada golpe recebido.'
+    },
+    {
+        texto: 'Transformação em Morcego: Vlad pode se transformar em morcego por tempo ilimitado, mas nessa forma fica com 1 de vida.'
+    },
+    {
+        texto: 'Transformação em Névoa: Vlad pode se transformar em névoa e percorrer cerca de 100 metros. Uma vez por dia.'
     },
 ]
 

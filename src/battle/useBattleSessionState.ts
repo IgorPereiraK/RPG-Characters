@@ -27,7 +27,14 @@ import { readBattleSnapshot, writeBattleSnapshot, SaveLimits } from "./battleSav
 import { useBattleDialogs } from "./dialogs/BattleDialogs";
 import { applyAlexiaSkill } from "./skills/alexia";
 import { applyRivenSkill, spendRivenAntiAtirador } from "./skills/riven";
-import { applyVladIncomingDamage, applyVladSkill, spendVladAntiAtirador } from "./skills/vlad";
+import {
+  applyVladArmor,
+  applyVladIncomingDamage,
+  applyVladSkill,
+  freshReflexoMarks,
+  spendReflexo,
+  spendVladAntiAtirador,
+} from "./skills/vlad";
 import { clampResource } from "./skills/shared";
 import {
   BattleSession,
@@ -68,12 +75,22 @@ function createState(
     bloodShieldBorder: "",
     transformOn: 0,
     transformBorder: "",
+    transformBonus: 0,
+    sobrevida: 0,
+    neutralCrit: 1,
+    neutralDefesa: 0,
+    neutralBorder: "",
     hightecOn: 0,
     hightecBorder: "",
     antiAtirador: 5,
     transfusaoCount: 0,
     versatil: "off",
     versatilBorder: "",
+    nevoa: 1,
+    angelical: "off",
+    angelicalBorder: "",
+    reflexoMarks: freshReflexoMarks(),
+    reflexoOpen: false,
     selectedSkill,
   };
 }
@@ -185,7 +202,11 @@ function buildFighter(args: {
     setWeaponIndex: (index) =>
       setState((current) => ({ ...current, weaponIndex: index })),
     setArmorIndex: (index) =>
-      setState((current) => ({ ...current, armorIndex: index })),
+      setState((current) =>
+        args.id === "Vlad"
+          ? applyVladArmor(current, index, args.armors)
+          : { ...current, armorIndex: index }
+      ),
     setSelectedSkill: (name) =>
       setState((current) => ({ ...current, selectedSkill: name })),
     useSkill: (name) => {
@@ -317,5 +338,15 @@ export function useBattleSessionState(): BattleSession {
     alexia,
     riven,
     fighter: (id) => fighters[id],
+    setReflexoMarks: (update) => {
+      setVladState((current) => ({
+        ...current,
+        reflexoMarks: update(current.reflexoMarks).slice(0, 8),
+      }));
+    },
+    closeReflexo: () => {
+      setVladState((current) => ({ ...current, reflexoOpen: false }));
+    },
+    useReflexo: (id) => spendReflexo(vladState, setVladState, vladStatus.mp, id),
   };
 }

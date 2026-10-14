@@ -32,7 +32,6 @@ export default function CharacterBattleVlad() {
   const modificadorConstituicaoVlad = fighter.constituicaoMod;
   const numberVladAtaque = fighter.ataque;
 
-  const healthPercentageVlad = (numberVladHP / vladStatus.hp) * 100;
   const manaPercentageVlad = (numberVladMP / vladStatus.mp) * 100;
 
   const clickVladPassiva = fighter.passiva;
@@ -127,10 +126,10 @@ export default function CharacterBattleVlad() {
                     </h2>
                     <div>
                       <div className="flex items-center gap-2 mb-4">
-                        <button className="border-2 rounded-md border-gray-900">
+                        <button className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
                           <img
                             src="./image/regeneracaoTalento.png"
-                            className="w-16 h-12"
+                            className="block w-full h-full object-cover"
                           />
                         </button>
                         <h3 className="text-gray-baldurText">
@@ -140,11 +139,11 @@ export default function CharacterBattleVlad() {
                       <div className="flex items-center gap-2 mb-4">
                         <button
                           onClick={antiAtiradorTalento}
-                          className="border-2 rounded-md border-gray-900"
+                          className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
                         >
                           <img
                             src="./image/antiAtiradorTalento.png"
-                            className="w-20 h-12"
+                            className="block w-full h-full object-cover"
                           />
                         </button>
                         <h3 className="text-gray-baldurText">
@@ -155,10 +154,10 @@ export default function CharacterBattleVlad() {
                         </span>
                       </div>
                       <div className="flex items-center gap-2 mb-4">
-                        <button className="border-2 rounded-md border-gray-900">
+                        <button className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
                           <img
                             src="./image/duelistaVlad.png"
-                            className="w-16 h-12"
+                            className="block w-full h-full object-cover"
                           />
                         </button>
                         <h3 className="text-gray-baldurText">
@@ -169,12 +168,12 @@ export default function CharacterBattleVlad() {
                         <button
                           type="button"
                           onClick={versatil}
-                          className="border-2 rounded-md border-gray-900"
+                          className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
                         >
                           <img
-                            src="./image/versatil.svg"
+                            src="./image/Versatil.png"
                             alt="Versátil"
-                            className="w-16 h-12"
+                            className="block w-full h-full object-cover"
                           />
                         </button>
                         <h3 className="text-gray-baldurText">
@@ -182,6 +181,33 @@ export default function CharacterBattleVlad() {
                         </h3>
                         <span className="text-gray-baldurText font-bold text-lg">
                           {versatilLabel}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-4">
+                        <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+                          <img
+                            src="./image/morcegoV.png"
+                            alt="Transformação em Morcego"
+                            className="block w-full h-full object-cover"
+                          />
+                        </span>
+                        <h3 className="text-gray-baldurText">{anotacoesVlad[11].texto}</h3>
+                      </div>
+                      <div className="flex items-center gap-2 mt-4">
+                        <button
+                          type="button"
+                          onClick={() => fighter.useSkill("Névoa")}
+                          className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
+                        >
+                          <img
+                            src="./image/Nevoa.png"
+                            alt="Transformação em Névoa"
+                            className="block w-full h-full object-cover"
+                          />
+                        </button>
+                        <h3 className="text-gray-baldurText">{anotacoesVlad[12].texto}</h3>
+                        <span className="text-gray-baldurText font-bold text-lg">
+                          {fighter.nevoa === 1 ? "1" : "Gasta"}
                         </span>
                       </div>
                     </div>
@@ -272,6 +298,12 @@ export default function CharacterBattleVlad() {
                       case "Mordida Vampírica":
                         transformacaoVampirica();
                         break;
+                      case "Transformação Angelical":
+                        fighter.useSkill("Transformação Angelical");
+                        break;
+                      case "Armadura Neutral":
+                        fighter.useSkill("Armadura Neutral");
+                        break;
                       case "Marca de Sangue":
                         marcaSangue();
                         break;
@@ -283,6 +315,12 @@ export default function CharacterBattleVlad() {
                     skill.name === "Transformação Vampírica"
                       ? buttonBorderColorVladTransformacao
                       : null
+                  }
+                  borderColorVladAngelical={
+                    skill.name === "Transformação Angelical" ? fighter.angelicalBorder : null
+                  }
+                  borderColorVladNeutral={
+                    skill.name === "Armadura Neutral" ? fighter.neutralBorder : null
                   }
                 />
               ))}
@@ -395,19 +433,35 @@ export default function CharacterBattleVlad() {
               </div>
             </div>
           </div>
-          <div className="w-full h-10 border-2 bg-gray-300 text-center text-xl font-bold text-black border-black relative">
+          <div className="w-full h-10 border-2 bg-gray-300 text-center text-xl font-bold text-black border-black relative overflow-hidden">
             <div
               className="bg-green-500 h-full"
               style={{
-                width: `${
-                  healthPercentageVlad > 100 ? 100 : healthPercentageVlad
-                }%`,
+                width: `${Math.min(
+                  100,
+                  (numberVladHP / (vladStatus.hp + (fighter.sobrevida > 0 ? 90 : 0))) * 100
+                )}%`,
               }}
-            >
-              <p className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                {numberVladHP}
-              </p>
-            </div>
+            />
+            {fighter.sobrevida > 0 ? (
+              <div
+                className="absolute top-0 h-full bg-gray-500"
+                style={{
+                  left: `${Math.min(
+                    100,
+                    (numberVladHP / (vladStatus.hp + 90)) * 100
+                  )}%`,
+                  width: `${Math.min(
+                    100,
+                    (fighter.sobrevida / (vladStatus.hp + 90)) * 100
+                  )}%`,
+                }}
+              />
+            ) : null}
+            <p className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+              {numberVladHP}
+              {fighter.sobrevida > 0 ? ` + ${fighter.sobrevida}` : ""}
+            </p>
           </div>
           <div className="w-full h-10 border-x-2 border-b-2 bg-gray-300 text-center text-xl font-bold text-black border-black relative">
             <div

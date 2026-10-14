@@ -1,6 +1,7 @@
 import { BattleSessionProvider, useBattleSession } from "../battle/BattleSession";
 import { BattleDialogProvider } from "../battle/dialogs/BattleDialogs";
 import BattleNotice from "../battle/dialogs/BattleNotice";
+import ReflexoPanel from "../battle/dialogs/ReflexoPanel";
 import MesaBattle from "../battle/mesa/MesaBattle";
 import ThemeSwitch from "../battle/ThemeSwitch";
 import { useBattleTheme } from "../battle/useBattleTheme";
@@ -30,6 +31,7 @@ function BattleScreen() {
         <ClassicBattle onTheme={setTheme} />
       )}
       <BattleNotice theme={theme} />
+      <ReflexoPanel theme={theme} />
     </>
   );
 }

@@ -262,6 +262,7 @@ export default function MesaBattle({ theme, onTheme }: MesaBattleProps) {
               label="Vida"
               current={fighter.hp}
               max={fighter.maxHp}
+              extra={fighter.sobrevida}
             />
             <ResourceBar
               kind="mp"
@@ -391,7 +392,7 @@ function SkillSlot({
   return (
     <Tooltip>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent className="mesa-tip" side="right">
+      <TooltipContent className={`mesa-tip mesa-tip-${fighter.id.toLowerCase()}`} side="right">
         <p className="mesa-tip-name">{skill.name}</p>
         <div className="mesa-tip-body">{skill.description}</div>
         <div className="mesa-tip-meta">
@@ -409,21 +410,30 @@ function ResourceBar({
   label,
   current,
   max,
+  extra = 0,
 }: {
   kind: "hp" | "mp";
   label: string;
   current: number;
   max: number;
+  extra?: number;
 }) {
-  const width = Math.max(0, Math.min(100, (current / max) * 100));
+  const pool = extra > 0 ? 90 : 0;
+  const scale = Math.max(1, max + pool);
+  const width = Math.max(0, Math.min(100, (current / scale) * 100));
+  const extraWidth = Math.max(0, Math.min(100 - width, (extra / scale) * 100));
 
   return (
     <div className={`mesa-bar ${kind}`}>
       <i style={{ width: `${width}%` }} />
+      {extra > 0 ? (
+        <span className="mesa-extra" style={{ left: `${width}%`, width: `${extraWidth}%` }} />
+      ) : null}
       <b>
         <span>{label}</span>
         <span>
           {current} / {max}
+          {extra > 0 ? <em className="mesa-extra-label"> + {extra}</em> : null}
         </span>
       </b>
     </div>

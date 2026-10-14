@@ -91,7 +91,7 @@ export const skillsVlad: Skills[] = [
   },
   {
     name: "Versátil",
-    image: "./image/versatil.svg",
+    image: "./image/Versatil.png",
     magic: "Talento Versátil",
     description: (
       <div>

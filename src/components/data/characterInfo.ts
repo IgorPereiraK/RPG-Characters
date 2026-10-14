@@ -8,7 +8,7 @@ export const characterInfo: Record<string, CharacterInfo> = {
       text: 'Vlad nasceu como um humano no Clã Alucard, que era um clã de caçadores de monstros. Por ironia do destino, Vlad, à beira da morte, acaba se tornando um vampiro. Mesmo com vergonha de se tornar um monstro, ele decide continuar a caçar. Assim sendo, Vlad Alucard se tornou um caçador que caça sua própria raça.',
       hp: "324",
       mp: "116",
-      level: "10",
+      level: "15",
       alinhamento: "Mal e Leal",
       ca: "19",
       raca: "Vampiro",

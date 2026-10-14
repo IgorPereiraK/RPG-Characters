@@ -85,6 +85,48 @@
   letter-spacing: 0.04em;
 }
 
+.battle-notice-actions button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.reflexo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.reflexo-enemy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #0004;
+}
+
+.reflexo-name {
+  text-align: left !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  padding: 0 12px;
+}
+
+.reflexo-stacks {
+  font-weight: 800;
+  text-align: center;
+}
+
+.reflexo-notice {
+  font-weight: 700;
+}
+
+.reflexo-remove {
+  min-height: 40px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
 .battle-notice.classic {
   background: #32281f;
   color: #e4ddc8;

@@ -1,5 +1,6 @@
+import { armorDeVlad } from "../components/data/armorBattleCharacters";
 import { clampResource } from "./skills/shared";
-import { FighterId, FighterState, VersatilMode } from "./types";
+import { FighterId, FighterState, ReflexoMark, VersatilMode } from "./types";
 
 const SAVE_KEY = "rpg-battle-save";
 const SAVE_VERSION = 2;
@@ -39,9 +40,14 @@ const NUMBER_FIELDS = [
   "bloodArmorOn",
   "bloodShieldOn",
   "transformOn",
+  "transformBonus",
+  "sobrevida",
+  "neutralCrit",
+  "neutralDefesa",
   "hightecOn",
   "antiAtirador",
   "transfusaoCount",
+  "nevoa",
 ] as const;
 
 const TEXT_FIELDS = [
@@ -50,8 +56,10 @@ const TEXT_FIELDS = [
   "bloodArmorBorder",
   "bloodShieldBorder",
   "transformBorder",
+  "neutralBorder",
   "hightecBorder",
   "versatilBorder",
+  "angelicalBorder",
 ] as const;
 
 const VERSATIL_MODES: VersatilMode[] = ["off", "ataque", "defesa"];
@@ -70,7 +78,10 @@ export function readBattleSnapshot(
     return {
       round: pickRound(parsed.round, fallback.round),
       activeId: pickId(parsed.activeId, fallback.activeId),
-      vlad: migrateVlad(restoreFighter(parsed.fighters.Vlad, fallback.vlad, limits.Vlad)),
+      vlad: migrateVlad(
+        restoreFighter(parsed.fighters.Vlad, fallback.vlad, limits.Vlad),
+        parsed.fighters.Vlad
+      ),
       alexia: restoreFighter(parsed.fighters.Alexia, fallback.alexia, limits.Alexia),
       riven: restoreFighter(parsed.fighters.Riven, fallback.riven, limits.Riven),
     };
@@ -98,7 +109,7 @@ export function writeBattleSnapshot(snapshot: BattleSnapshot) {
   }
 }
 
-function migrateVlad(fighter: FighterState): FighterState {
+function migrateVlad(fighter: FighterState, saved: unknown): FighterState {
   const next = { ...fighter };
   const plain = next.transformOn === 0 && next.bloodArmorOn === 0 && next.bloodShieldOn === 0;
   if (plain && next.constituicaoMod === 5) next.constituicaoMod = 7;
@@ -106,6 +117,24 @@ function migrateVlad(fighter: FighterState): FighterState {
   if (plain && next.ca === 17) next.ca = 19;
   if (next.hp === 234) next.hp = 324;
   if (next.mp === 82) next.mp = 116;
+  if (
+    isRecord(saved) &&
+    saved.sobrevida === undefined &&
+    armorDeVlad[next.armorIndex]?.name === "Armadura Neutral"
+  ) {
+    next.sobrevida = 90;
+  }
+  if (next.transformOn === 1 && next.transformBonus !== 1) {
+    next.forcaMod -= 3;
+    next.destrezaMod -= 3;
+    next.inteligenciaMod -= 3;
+    next.constituicaoMod -= 3;
+    next.carismaMod += 1;
+    next.sabedoriaMod += 1;
+    next.ca -= 2;
+    next.ataque -= 3;
+    next.transformBonus = 1;
+  }
   return next;
 }
 
@@ -134,12 +163,36 @@ function restoreFighter(
   next.versatil = VERSATIL_MODES.includes(saved.versatil as VersatilMode)
     ? (saved.versatil as VersatilMode)
     : fallback.versatil;
+  next.angelical = VERSATIL_MODES.includes(saved.angelical as VersatilMode)
+    ? (saved.angelical as VersatilMode)
+    : fallback.angelical;
   next.selectedSkill =
     typeof saved.selectedSkill === "string" && limits.skills.includes(saved.selectedSkill)
       ? saved.selectedSkill
       : fallback.selectedSkill;
+  next.reflexoMarks = pickReflexo(saved.reflexoMarks, fallback.reflexoMarks);
+  next.reflexoOpen = false;
 
   return next;
+}
+
+function pickReflexo(value: unknown, fallback: ReflexoMark[]): ReflexoMark[] {
+  if (!Array.isArray(value)) return fallback;
+
+  const marks: ReflexoMark[] = [];
+  for (const item of value) {
+    if (marks.length >= 8 || !isRecord(item)) continue;
+    const id = typeof item.id === "string" ? item.id.trim().slice(0, 40) : "";
+    if (!id || marks.some((mark) => mark.id === id)) continue;
+    const name = typeof item.name === "string" ? item.name.slice(0, 40) : "Inimigo";
+    const stacks =
+      typeof item.stacks === "number" && Number.isInteger(item.stacks)
+        ? Math.max(0, Math.min(99, item.stacks))
+        : 0;
+    marks.push({ id, name, stacks });
+  }
+
+  return marks.length > 0 ? marks : fallback;
 }
 
 function pickRound(value: unknown, fallback: number) {

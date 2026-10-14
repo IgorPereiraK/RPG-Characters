@@ -118,10 +118,10 @@ export default function CharacterBattleAlexia() {
                   </h2>
                   <div>
                     <div className="flex items-center gap-2 mb-4">
-                      <button className="border-2 rounded-md border-gray-900">
+                      <button className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
                         <img
                           src="./image/inteligenciaCATalento.png"
-                          className="w-14"
+                          className="block w-full h-full object-cover"
                         />
                       </button>
                       <h3 className="text-gray-baldurText">
@@ -129,10 +129,10 @@ export default function CharacterBattleAlexia() {
                       </h3>
                     </div>
                     <div className="flex items-center gap-2 mb-4">
-                      <button className="border-2 rounded-md border-gray-900">
+                      <button className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
                         <img
                           src="./image/cirugiaoTalento.png"
-                          className="w-20"
+                          className="block w-full h-full object-cover"
                         />
                       </button>
                       <h3 className="text-gray-baldurText">
@@ -140,10 +140,10 @@ export default function CharacterBattleAlexia() {
                       </h3>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button className="border-2 rounded-md border-gray-900">
+                      <button className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
                         <img
                           src="./image/festaMafiaTalento.png"
-                          className="w-24"
+                          className="block w-full h-full object-cover"
                         />
                       </button>
                       <h3 className="text-gray-baldurText">

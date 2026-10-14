@@ -119,11 +119,11 @@ export default function CharacterBattleRiven() {
                     <div className="flex items-center gap-2 mb-4">
                       <button
                         onClick={regeneracao}
-                        className="border-2 rounded-md border-gray-900"
+                        className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
                       >
                         <img
                           src="./image/regeneracaoTalento.png"
-                          className="w-16"
+                          className="block w-full h-full object-cover"
                         />
                       </button>
                       <h3 className="text-gray-baldurText">
@@ -133,11 +133,11 @@ export default function CharacterBattleRiven() {
                     <div className="flex items-center gap-2 mb-4">
                       <button
                         onClick={antiAtiradorTalento}
-                        className="border-2 rounded-md border-gray-900"
+                        className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
                       >
                         <img
                           src="./image/antiAtiradorTalento.png"
-                          className="w-20"
+                          className="block w-full h-full object-cover"
                         />
                       </button>
                       <h3 className="text-gray-baldurText">
@@ -150,11 +150,11 @@ export default function CharacterBattleRiven() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={gladiadorImortal}
-                        className="border-2 rounded-md border-gray-900"
+                        className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
                       >
                         <img
                           src="./image/duelistaTalento.png"
-                          className="w-16"
+                          className="block w-full h-full object-cover"
                         />
                       </button>
                       <h3 className="text-gray-baldurText">

@@ -498,6 +498,18 @@
   background: linear-gradient(#e0453f, #8d1111 60%, #5e0808);
 }
 
+.mesa-bar .mesa-extra {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(#c5ccd3, #8b939c 55%, #5c636b);
+}
+
+.mesa-extra-label {
+  color: #d5dbe1;
+  font-style: normal;
+}
+
 .mesa-bar.mp i {
   background: linear-gradient(#5f93ff, #2a52b8 60%, #18307a);
 }
@@ -822,6 +834,22 @@
 .mesa-tip-body {
   font-size: 0.98rem;
   line-height: 1.35;
+}
+
+.mesa-tip .text-yellow-300,
+.mesa-parch .text-yellow-300 {
+  color: #8f1d1d;
+  font-weight: 700;
+}
+
+.mesa-tip-alexia .text-yellow-300,
+.mesa-alexia .mesa-parch .text-yellow-300 {
+  color: #1d4ed8;
+}
+
+.mesa-tip-riven .text-yellow-300,
+.mesa-riven .mesa-parch .text-yellow-300 {
+  color: #166534;
 }
 
 .mesa-tip-meta {

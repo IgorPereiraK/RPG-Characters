@@ -5,6 +5,12 @@ export type FighterId = "Vlad" | "Alexia" | "Riven";
 export type BattleTheme = "classic" | "mesa";
 export type VersatilMode = "off" | "ataque" | "defesa";
 
+export type ReflexoMark = {
+  id: string;
+  name: string;
+  stacks: number;
+};
+
 export type FighterState = {
   hp: number;
   mp: number;
@@ -32,12 +38,22 @@ export type FighterState = {
   bloodShieldBorder: string;
   transformOn: number;
   transformBorder: string;
+  transformBonus: number;
+  sobrevida: number;
+  neutralCrit: number;
+  neutralDefesa: number;
+  neutralBorder: string;
   hightecOn: number;
   hightecBorder: string;
   antiAtirador: number;
   transfusaoCount: number;
   versatil: VersatilMode;
   versatilBorder: string;
+  nevoa: number;
+  angelical: VersatilMode;
+  angelicalBorder: string;
+  reflexoMarks: ReflexoMark[];
+  reflexoOpen: boolean;
   selectedSkill: string;
 };
 
@@ -76,4 +92,7 @@ export type BattleSession = {
   alexia: FighterController;
   riven: FighterController;
   fighter: (id: FighterId) => FighterController;
+  setReflexoMarks: (update: (marks: ReflexoMark[]) => ReflexoMark[]) => void;
+  closeReflexo: () => void;
+  useReflexo: (id: string) => string;
 };

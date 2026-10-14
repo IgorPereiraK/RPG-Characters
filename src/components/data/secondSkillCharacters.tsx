@@ -25,6 +25,35 @@ export const secondSkillsVlad: Skills[] = [
     ),
   },
   {
+    name: "Transformação Angelical",
+    image: "./image/Transformação do Clã.png",
+    magic: "Magia de Transformação",
+    description: (
+      <div>
+        <p>
+          Os membros mais fortes do clã Alucard recebem uma arma de caçador. O
+          minério da arma de Vlad já estava separado, mas nunca foi forjado.
+          Ele controla esse{" "}
+          <span className="text-yellow-300">metal derretido</span> e o usa para
+          aprimorar as armas de sangue e as armas comuns. Na transformação,
+          Vlad fica{" "}
+          <span className="text-yellow-300">mais humano do que vampiro</span> e
+          ganha <span className="text-yellow-300">asas brancas</span>, de
+          aspecto angelical. Enquanto a forma está ativa, ele ganha{" "}
+          <span className="text-yellow-300">+2 de ataque</span>,{" "}
+          <span className="text-yellow-300">+2 de CA</span> e{" "}
+          <span className="text-yellow-300">1d6 para ataque ou defesa</span>.
+        </p>
+      </div>
+    ),
+    type: (
+      <div>
+        <span className="inline-block w-3 h-3 bg-orange-500 rounded-full mr-1"></span>
+        <span>Ação Bônus</span>
+      </div>
+    ),
+  },
+  {
     name: "Garras Vampírica",
     image: "./image/garrasVam.png",
     magic: "Ação de Vampiro",

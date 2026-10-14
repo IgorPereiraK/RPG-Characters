@@ -35,6 +35,20 @@ export const armasDeVlad: Item[] = [
     texto:
       "Uma Arma do Velho Oeste muito forte e quente, perfeita para queimar seus adversários.",
   },
+  {
+    imagem: "./image/ArmaSangue.jpg",
+    name: "Armas de Sangue",
+    dano: "Dano: varia por arma",
+    texto:
+      "Facão: 1d8. Ao acertar, ganha 1 de CA.\nForca: 1d8. Ao acertar, o inimigo fica com -1 em tudo.\nFoice: 2d8.\nBastão doce: 1d8. Metade do dano vira cura.\nAdaga pérsica: 3d8. Causa sangramento de 1 a 2 de dano por turno.\nArco longo: 2d10. Arco de um elfo antigo que fez parte do grupo do Gimper.\nEm um ataque corpo a corpo com arma de sangue, se o dado sair 1 ou 2, ele pode ser rolado de novo.",
+  },
+  {
+    imagem: "./image/AcessV3.PNG",
+    name: "Granada de Sangue",
+    dano: "Dano: 4d20+CONST",
+    texto:
+      "Depois de encher essa granada com sangue ela pode ser jogada e causar uma explosão de sangue.",
+  },
 ];
 
 export const armasDeAlexia: Item[] = [

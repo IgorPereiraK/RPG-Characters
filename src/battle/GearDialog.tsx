@@ -85,7 +85,7 @@ export default function GearDialog({
                 {selected.dano ? (
                   <p className={mesa ? undefined : "text-lg text-gray-100"}>{selected.dano}</p>
                 ) : null}
-                <p className={mesa ? undefined : "text-gray-baldurText text-base mt-4"}>
+                <p className={mesa ? "whitespace-pre-line" : "text-gray-baldurText text-base mt-4 whitespace-pre-line"}>
                   {selected.texto}
                 </p>
               </div>

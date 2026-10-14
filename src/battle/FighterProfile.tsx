@@ -91,8 +91,8 @@ function VladProfile() {
       <div className="text-center mt-8">
         <h2 className="text-xl text-gray-baldurText font-extrabold mb-2">Talentos</h2>
         <div className="flex items-center gap-2 mb-4 text-left">
-          <span className="border-2 rounded-md border-gray-900">
-            <img src="./image/regeneracaoTalento.png" alt="" className="w-16 h-12" />
+          <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+            <img src="./image/regeneracaoTalento.png" alt="" className="block w-full h-full object-cover" />
           </span>
           <h3 className="text-gray-baldurText">{anotacoesVlad[7].texto}</h3>
         </div>
@@ -100,16 +100,16 @@ function VladProfile() {
           <button
             type="button"
             onClick={vlad.useAntiAtirador}
-            className="border-2 rounded-md border-gray-900"
+            className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
           >
-            <img src="./image/antiAtiradorTalento.png" alt="" className="w-20 h-12" />
+            <img src="./image/antiAtiradorTalento.png" alt="" className="block w-full h-full object-cover" />
           </button>
           <h3 className="text-gray-baldurText">{anotacoesVlad[8].texto}</h3>
           <span className="text-gray-baldurText font-bold text-lg">{vlad.antiAtirador}</span>
         </div>
         <div className="flex items-center gap-2 mb-4 text-left">
-          <span className="border-2 rounded-md border-gray-900">
-            <img src="./image/duelistaVlad.png" alt="" className="w-16 h-12" />
+          <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+            <img src="./image/duelistaVlad.png" alt="" className="block w-full h-full object-cover" />
           </span>
           <h3 className="text-gray-baldurText">{anotacoesVlad[9].texto}</h3>
         </div>
@@ -117,13 +117,32 @@ function VladProfile() {
           <button
             type="button"
             onClick={() => vlad.useSkill("Versátil")}
-            className="border-2 rounded-md border-gray-900"
+            className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
           >
-            <img src="./image/versatil.svg" alt="Versátil" className="w-16 h-12" />
+            <img src="./image/Versatil.png" alt="Versátil" className="block w-full h-full object-cover" />
           </button>
           <h3 className="text-gray-baldurText">{anotacoesVlad[10].texto}</h3>
           <span className="text-gray-baldurText font-bold text-lg">
             {vlad.versatil === "ataque" ? "Ataque" : vlad.versatil === "defesa" ? "Defesa" : "Desativado"}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 mt-4 text-left">
+          <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+            <img src="./image/morcegoV.png" alt="Transformação em Morcego" className="block w-full h-full object-cover" />
+          </span>
+          <h3 className="text-gray-baldurText">{anotacoesVlad[11].texto}</h3>
+        </div>
+        <div className="flex items-center gap-2 mt-4 text-left">
+          <button
+            type="button"
+            onClick={() => vlad.useSkill("Névoa")}
+            className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
+          >
+            <img src="./image/Nevoa.png" alt="Transformação em Névoa" className="block w-full h-full object-cover" />
+          </button>
+          <h3 className="text-gray-baldurText">{anotacoesVlad[12].texto}</h3>
+          <span className="text-gray-baldurText font-bold text-lg">
+            {vlad.nevoa === 1 ? "1" : "Gasta"}
           </span>
         </div>
       </div>
@@ -163,20 +182,20 @@ function AlexiaProfile() {
       <div className="text-center mt-8">
         <h2 className="text-xl text-gray-baldurText font-extrabold mb-2">Talentos</h2>
         <div className="flex items-center gap-2 mb-4 text-left">
-          <span className="border-2 rounded-md border-gray-900">
-            <img src="./image/inteligenciaCATalento.png" alt="" className="w-14" />
+          <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+            <img src="./image/inteligenciaCATalento.png" alt="" className="block w-full h-full object-cover" />
           </span>
           <h3 className="text-gray-baldurText">{anotacoesAlexia[1].texto}</h3>
         </div>
         <div className="flex items-center gap-2 mb-4 text-left">
-          <span className="border-2 rounded-md border-gray-900">
-            <img src="./image/cirugiaoTalento.png" alt="" className="w-20" />
+          <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+            <img src="./image/cirugiaoTalento.png" alt="" className="block w-full h-full object-cover" />
           </span>
           <h3 className="text-gray-baldurText">{anotacoesAlexia[2].texto}</h3>
         </div>
         <div className="flex items-center gap-2 text-left">
-          <span className="border-2 rounded-md border-gray-900">
-            <img src="./image/festaMafiaTalento.png" alt="" className="w-24" />
+          <span className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0">
+            <img src="./image/festaMafiaTalento.png" alt="" className="block w-full h-full object-cover" />
           </span>
           <h3 className="text-gray-baldurText">{anotacoesAlexia[3].texto}</h3>
         </div>
@@ -221,9 +240,9 @@ function RivenProfile() {
           <button
             type="button"
             onClick={riven.useRegeneracao}
-            className="border-2 rounded-md border-gray-900"
+            className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
           >
-            <img src="./image/regeneracaoTalento.png" alt="" className="w-16" />
+            <img src="./image/regeneracaoTalento.png" alt="" className="block w-full h-full object-cover" />
           </button>
           <h3 className="text-gray-baldurText">{anotacoesRiven[2].texto}</h3>
         </div>
@@ -231,9 +250,9 @@ function RivenProfile() {
           <button
             type="button"
             onClick={riven.useAntiAtirador}
-            className="border-2 rounded-md border-gray-900"
+            className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
           >
-            <img src="./image/antiAtiradorTalento.png" alt="" className="w-20" />
+            <img src="./image/antiAtiradorTalento.png" alt="" className="block w-full h-full object-cover" />
           </button>
           <h3 className="text-gray-baldurText">{anotacoesRiven[3].texto}</h3>
           <span className="text-gray-baldurText font-bold text-lg">{riven.antiAtirador}</span>
@@ -242,9 +261,9 @@ function RivenProfile() {
           <button
             type="button"
             onClick={riven.useGladiador}
-            className="border-2 rounded-md border-gray-900"
+            className="inline-flex shrink-0 w-14 h-14 overflow-hidden border-2 rounded-md border-gray-900 p-0"
           >
-            <img src="./image/duelistaTalento.png" alt="" className="w-16" />
+            <img src="./image/duelistaTalento.png" alt="" className="block w-full h-full object-cover" />
           </button>
           <h3 className="text-gray-baldurText">{anotacoesRiven[4].texto}</h3>
         </div>

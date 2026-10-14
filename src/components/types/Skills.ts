@@ -24,4 +24,6 @@ export type Skills = {
   borderColorAlexiaArmaduraHightec?: string | null;
   borderColorVladTransformacao?: string | null;
   borderColorVladVersatil?: string | null;
+  borderColorVladAngelical?: string | null;
+  borderColorVladNeutral?: string | null;
 };
